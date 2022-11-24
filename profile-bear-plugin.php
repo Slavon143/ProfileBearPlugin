@@ -4,11 +4,11 @@
  */
 /*
 Plugin Name: ProfileBear Plugin
-Plugin URI: http://alecaddd.com/plugin
-Description: This is my first attempt on writing a custom Plugin for this amazing tutorial series.
+Plugin URI: https://github.com/Slavon143/ProfileBearPlugin
+Description: Plugin for ProfileBear.
 Version: 1.0.0
 Author: Slava Stovpjaga
-Author URI: http://alecaddd.com
+Author URI: https://slavon143.github.io/Profile/
 License: GPLv2 or later
 Text Domain: profile-bear-plugin
 */
