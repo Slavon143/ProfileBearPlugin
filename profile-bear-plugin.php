@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package  ProfilebearPlugin
  */
@@ -32,18 +33,18 @@ Copyright 2005-2015 Automattic, Inc.
 */
 
 // If this file is called firectly, abort!!!
-defined( 'ABSPATH' ) or die( 'Hey, what are you doing here? You silly human!' );
+defined('ABSPATH') or die('Hey, what are you doing here? You silly human!');
 
 // Require once the Composer Autoload
-if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
-	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
+    require_once dirname(__FILE__) . '/vendor/autoload.php';
 }
 
 /**
  * The code that runs during plugin activation
  */
-function profile_bear() {
-	Inc\Base\Activate::activate();
+function activate_profile_bear_plugin() {
+    Inc\Base\Activate::activate();
 }
 register_activation_hook( __FILE__, 'activate_profile_bear_plugin' );
 
@@ -51,13 +52,13 @@ register_activation_hook( __FILE__, 'activate_profile_bear_plugin' );
  * The code that runs during plugin deactivation
  */
 function deactivate_profile_bear_plugin() {
-	Inc\Base\Deactivate::deactivate();
+    Inc\Base\Deactivate::deactivate();
 }
 register_deactivation_hook( __FILE__, 'deactivate_profile_bear_plugin' );
 
 /**
  * Initialize all the core classes of the plugin
  */
-if ( class_exists( 'Inc\\Init' ) ) {
-	Inc\Init::register_services();
+if (class_exists('Inc\\Init')) {
+    Inc\Init::register_services();
 }

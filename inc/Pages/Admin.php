@@ -91,17 +91,17 @@ class Admin extends BaseController
 			array(
 				'option_group' => 'profile_bear_plugin_settings',
 				'option_name' => 'cpt_manager',
-				'callback' => array( $this->callbacks, 'checkboxSanitize' )
+				'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
 			),
 			array(
 				'option_group' => 'profile_bear_plugin_settings',
 				'option_name' => 'taxanomy_manager',
-                'callback' => array( $this->callbacks, 'checkboxSanitize' )
+                'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
 			),
             array(
                 'option_group' => 'profile_bear_plugin_settings',
                 'option_name' => 'media_widgets',
-                'callback' => array( $this->callbacks, 'checkboxSanitize' )
+                'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
             ),
 		);
 
