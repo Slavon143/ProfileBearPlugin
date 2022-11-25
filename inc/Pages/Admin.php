@@ -60,28 +60,28 @@ class Admin extends BaseController
 		$this->subpages = array(
 			array(
 				'parent_slug' => 'profile_bear_plugin',
-				'page_title' => 'Custom Post Types', 
-				'menu_title' => 'CPT', 
-				'capability' => 'manage_options', 
+				'page_title' => 'Custom Post Types',
+				'menu_title' => 'CPT',
+				'capability' => 'manage_options',
 				'menu_slug' => 'profile_bear_cpt',
 				'callback' => array( $this->callbacks, 'adminCpt' )
 			),
-			array(
-				'parent_slug' => 'profile_bear_plugin',
-				'page_title' => 'Custom Taxonomies', 
-				'menu_title' => 'Taxonomies', 
-				'capability' => 'manage_options',
-				'menu_slug' => 'profile_bear_taxonomies',
-				'callback' => array( $this->callbacks, 'adminTaxonomy' )
-			),
-			array(
-				'parent_slug' => 'profile_bear_plugin',
-				'page_title' => 'Custom Widgets', 
-				'menu_title' => 'Widgets', 
-				'capability' => 'manage_options', 
-				'menu_slug' => 'profile_bear_widgets',
-				'callback' => array( $this->callbacks, 'adminWidget' )
-			)
+//			array(
+//				'parent_slug' => 'profile_bear_plugin',
+//				'page_title' => 'Custom Taxonomies',
+//				'menu_title' => 'Taxonomies',
+//				'capability' => 'manage_options',
+//				'menu_slug' => 'profile_bear_taxonomies',
+//				'callback' => array( $this->callbacks, 'adminTaxonomy' )
+//			),
+//			array(
+//				'parent_slug' => 'profile_bear_plugin',
+//				'page_title' => 'Custom Widgets',
+//				'menu_title' => 'Widgets',
+//				'capability' => 'manage_options',
+//				'menu_slug' => 'profile_bear_widgets',
+//				'callback' => array( $this->callbacks, 'adminWidget' )
+//			)
 		);
 	}
 
@@ -90,18 +90,12 @@ class Admin extends BaseController
 		$args = array(
 			array(
 				'option_group' => 'profile_bear_plugin_settings',
-				'option_name' => 'cpt_manager',
+				'option_name' => 'optimize_img',
 				'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
-			),
-			array(
-				'option_group' => 'profile_bear_plugin_settings',
-				'option_name' => 'taxanomy_manager',
-                'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
 			),
             array(
                 'option_group' => 'profile_bear_plugin_settings',
-                'option_name' => 'media_widgets',
-                'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
+                'option_name' => 'select_test',
             ),
 		);
 
@@ -113,7 +107,7 @@ class Admin extends BaseController
 		$args = array(
 			array(
 				'id' => 'profile_bear_admin_index',
-				'title' => 'Settings Manager',
+				'title' => 'Settings Manager IMG',
 				'callback' => array( $this->callbacks_mngr, 'adminSectionManager' ),
 				'page' => 'profile_bear_plugin'
 			)
@@ -126,39 +120,23 @@ class Admin extends BaseController
 	{
 		$args = array(
 			array(
-				'id' => 'cpt_manager',
-				'title' => 'Activate CPT Manager',
+				'id' => 'optimize_img',
+				'title' => 'Optimize IMG',
 				'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
 				'page' => 'profile_bear_plugin',
 				'section' => 'profile_bear_admin_index',
 				'args' => array(
-					'label_for' => 'cpt_manager',
+					'label_for' => 'optimize_img',
                     'class' => 'ui-toggle'
 				)
 			),
             array(
-                'id' => 'taxanomy_manager',
-                'title' => 'Taxanomy',
-                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
+                'id' => 'quality_img',
+                'title' => 'Image quality: Where 100 is the best quality',
+                'callback' => array( $this->callbacks, 'profileBearSelect' ),
                 'page' => 'profile_bear_plugin',
                 'section' => 'profile_bear_admin_index',
-                'args' => array(
-                    'label_for' => 'taxanomy_manager',
-                    'class' => 'ui-toggle'
-                )
             ),
-            array(
-                'id' => 'equ',
-                'title' => 'Text',
-                'callback' => array( $this->callbacks, 'profileBearTextExample' ),
-                'page' => 'profile_bear_plugin',
-                'section' => 'profile_bear_admin_index',
-                'args' => array(
-                    'label_for' => 'equ',
-                    'class' => 'ui-toggle'
-                )
-            ),
-
 		);
 
 		$this->settings->setFields( $args );

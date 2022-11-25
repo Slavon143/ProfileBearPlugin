@@ -2,60 +2,49 @@
 /**
  * @package  ProfileBearPlugin
  */
-
 namespace Inc\Api\Callbacks;
 
 use Inc\Base\BaseController;
 
 class AdminCallbacks extends BaseController
 {
-    public function adminDashboard()
+	public function adminDashboard()
+	{
+		return require_once( "$this->plugin_path/templates/admin.php" );
+	}
+
+	public function adminCpt()
+	{
+		return require_once( "$this->plugin_path/templates/cpt.php" );
+	}
+
+	public function adminTaxonomy()
+	{
+		return require_once( "$this->plugin_path/templates/taxonomy.php" );
+	}
+
+	public function adminWidget()
+	{
+		return require_once( "$this->plugin_path/templates/widget.php" );
+	}
+
+	public function profileBearOptionsGroup( $input )
+	{
+		return $input;
+	}
+
+    public function profileBearSelect()
     {
-        return require_once("$this->plugin_path/templates/admin.php");
+        $value = esc_attr( get_option( 'select_test' ) );
+        if (empty($value)){
+            $value = 50;
+        }
+        echo '<input type="range" class="regular-text" min="1" max="100" name="select_test" value="' . $value . '" placeholder="select_test" oninput="this.nextElementSibling.value = this.value">
+        <output>' .$value. '</output>
+        ';
     }
 
-    public function adminCpt()
-    {
-        return require_once("$this->plugin_path/templates/cpt.php");
-    }
 
-    public function adminTaxonomy()
-    {
-        return require_once("$this->plugin_path/templates/taxonomy.php");
-    }
 
-    public function adminWidget()
-    {
-        return require_once("$this->plugin_path/templates/widget.php");
-    }
-
-    public function profileBearOptionsGroup($input)
-    {
-        return $input;
-    }
-
-    public function profileBearAdminSection()
-    {
-        echo 'Check this beautiful section!';
-    }
-
-    public function profileBearTextExample()
-    {
-        $value = esc_attr(get_option('text_example'));
-        echo '<input type="text" class="regular-text" name="text_example" value="' . $value . '" placeholder="Write Something Here!">';
-    }
-
-    public function profileBearFirstName()
-    {
-        $value = esc_attr(get_option('first_name'));
-        echo '<input type="text" class="regular-text" name="first_name" value="' . $value . '" placeholder="Write your First Name">';
-    }
-
-    public function profileBearFirstName2()
-    {
-        $value = esc_attr(get_option('first_name'));
-        echo '<input type="text" class="regular-text" name="first_name" value="' . $value . '" placeholder="Write your First Name">';
-    }
 }
-
 ?>
