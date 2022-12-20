@@ -11,6 +11,7 @@ use Inc\Api\Callbacks\ManagerCallbacks;
 /**
 * 
 */
+
 class Admin extends BaseController
 {
 	public $settings;
@@ -60,31 +61,40 @@ class Admin extends BaseController
 		$this->subpages = array(
 			array(
 				'parent_slug' => 'profile_bear_plugin',
-				'page_title' => 'Custom Post Types',
-				'menu_title' => 'CPT',
+				'page_title' => 'Optimization IMG Settings',
+				'menu_title' => 'Manage Settings IMG',
 				'capability' => 'manage_options',
-				'menu_slug' => 'profile_bear_cpt',
-				'callback' => array( $this->callbacks, 'adminCpt' )
+				'menu_slug' => 'profile_bear_taxonomies',
+				'callback' => array( $this->callbacks, 'adminOptimizationImg' )
 			),
-//			array(
-//				'parent_slug' => 'profile_bear_plugin',
-//				'page_title' => 'Custom Taxonomies',
-//				'menu_title' => 'Taxonomies',
-//				'capability' => 'manage_options',
-//				'menu_slug' => 'profile_bear_taxonomies',
-//				'callback' => array( $this->callbacks, 'adminTaxonomy' )
-//			),
-//			array(
-//				'parent_slug' => 'profile_bear_plugin',
-//				'page_title' => 'Custom Widgets',
-//				'menu_title' => 'Widgets',
-//				'capability' => 'manage_options',
-//				'menu_slug' => 'profile_bear_widgets',
-//				'callback' => array( $this->callbacks, 'adminWidget' )
-//			)
+			array(
+				'parent_slug' => 'profile_bear_plugin',
+				'page_title' => 'Custom Portwest',
+				'menu_title' => 'Portwest Settings',
+				'capability' => 'manage_options',
+				'menu_slug' => 'profile_bear_portwest',
+				'callback' => array( $this->callbacks, 'adminPortwest' )
+			),
+            array(
+                'parent_slug' => 'profile_bear_plugin',
+                'page_title' => 'Custom Bastadgruppen',
+                'menu_title' => 'Bastadgruppen Settings',
+                'capability' => 'manage_options',
+                'menu_slug' => 'profile_bear_bastadgruppen',
+                'callback' => array( $this->callbacks, 'adminBastadgruppen' )
+            ),
+            array(
+                'parent_slug' => 'profile_bear_plugin',
+                'page_title' => 'Custom Jobman',
+                'menu_title' => 'Jobman Settings',
+                'capability' => 'manage_options',
+                'menu_slug' => 'profile_bear_jobman',
+                'callback' => array( $this->callbacks, 'adminJobman' )
+            ),
+
 		);
 	}
-
+//bastadgruppen
 	public function setSettings()
 	{
 		$args = array(
@@ -95,7 +105,27 @@ class Admin extends BaseController
 			),
             array(
                 'option_group' => 'profile_bear_plugin_settings',
-                'option_name' => 'select_test',
+                'option_name' => 'optimize_png',
+                'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
+            ),
+            array(
+                'option_group' => 'profile_bear_plugin_settings',
+                'option_name' => 'optimize_jpg',
+                'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
+            ),
+            array(
+                'option_group' => 'profile_bear_plugin_settings',
+                'option_name' => 'optimize_jpeg',
+                'callback' => array( $this->callbacks_mngr, 'checkboxSanitize' )
+            ),
+            array(
+                'option_group' => 'profile_bear_plugin_settings',
+                'option_name' => 'optimize_img_time_update',
+                'callback' => array( $this->callbacks, 'profileBearOptionsGroup' )
+            ),
+            array(
+                'option_group' => 'profile_bear_plugin_settings',
+                'option_name' => 'optimize_quality_img',
             ),
 		);
 
@@ -119,23 +149,68 @@ class Admin extends BaseController
 	public function setFields()
 	{
 		$args = array(
-			array(
-				'id' => 'optimize_img',
-				'title' => 'Optimize IMG',
-				'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
-				'page' => 'profile_bear_plugin',
-				'section' => 'profile_bear_admin_index',
-				'args' => array(
-					'label_for' => 'optimize_img',
-                    'class' => 'ui-toggle'
-				)
-			),
+
             array(
-                'id' => 'quality_img',
-                'title' => 'Image quality: Where 100 is the best quality',
-                'callback' => array( $this->callbacks, 'profileBearSelect' ),
+                'id' => 'optimize_img',
+                'title' => 'Optimize IMG',
+                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
                 'page' => 'profile_bear_plugin',
                 'section' => 'profile_bear_admin_index',
+                'args' => array(
+                    'label_for' => 'optimize_img',
+                    'class' => 'ui-toggle'
+                )
+            ),
+            array(
+                'id' => 'optimize_jpg',
+                'title' => 'JPG',
+                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
+                'page' => 'profile_bear_plugin',
+                'section' => 'profile_bear_admin_index',
+                'args' => array(
+                    'label_for' => 'optimize_jpg',
+                    'class' => 'ui-toggle'
+                )
+            ),
+            array(
+                'id' => 'optimize_png',
+                'title' => 'PNG',
+                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
+                'page' => 'profile_bear_plugin',
+                'section' => 'profile_bear_admin_index',
+                'args' => array(
+                    'label_for' => 'optimize_png',
+                    'class' => 'ui-toggle'
+                )
+            ),
+            array(
+                'id' => 'optimize_jpeg',
+                'title' => 'JPEG',
+                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
+                'page' => 'profile_bear_plugin',
+                'section' => 'profile_bear_admin_index',
+                'args' => array(
+                    'label_for' => 'optimize_jpeg',
+                    'class' => 'ui-toggle'
+                )
+            ),
+            array(
+                'id' => 'optimize_quality_img',
+                'title' => 'Image quality: Where 100 is the best quality',
+                'callback' => array( $this->callbacks, 'profileBearSelectImgQuality' ),
+                'page' => 'profile_bear_plugin',
+                'section' => 'profile_bear_admin_index',
+            ),
+            array(
+                'id' => 'optimize_img_time_update',
+                'title' => 'Time for update',
+                'callback' => array( $this->callbacks, 'profileBearOptions' ),
+                'page' => 'profile_bear_plugin',
+                'section' => 'profile_bear_admin_index',
+                'args' => array(
+                    'label_for' => 'optimize_img_time_update',
+                    'class' => 'ui-toggle'
+                )
             ),
 		);
 

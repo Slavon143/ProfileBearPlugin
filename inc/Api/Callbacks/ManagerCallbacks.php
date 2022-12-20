@@ -12,7 +12,6 @@ class ManagerCallbacks extends BaseController
 
     public function checkboxSanitize($input)
     {
-        if (!empty($_POST)){}
         return (isset($input) ? true : false);
     }
 
