@@ -64,7 +64,7 @@ class Admin extends BaseController
 				'page_title' => 'Optimization IMG Settings',
 				'menu_title' => 'Manage Settings IMG',
 				'capability' => 'manage_options',
-				'menu_slug' => 'profile_bear_taxonomies',
+				'menu_slug' => 'profile_bear_optimization_img',
 				'callback' => array( $this->callbacks, 'adminOptimizationImg' )
 			),
 			array(
