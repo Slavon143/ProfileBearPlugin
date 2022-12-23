@@ -4,7 +4,7 @@ use Inc\Classes\MyFunctions;
 
 $db = new MyFunctions();
 
-$limit = 10;
+$limit = 500;
 $page = isset($_GET['pagin']) ? $_GET['pagin'] : 1;
 $start = ((int)$page - 1) * $limit;
 $total = $db->getCount();
@@ -148,7 +148,7 @@ $getAll = $db->getAllImg($start, $limit, $search);
                         <td><span style="color: white" class="badge ' . current($status) . '"> ' . key($status) . ' </span></td>
                         <td>' . $img['img'] .
                                     '</td>
-                        <td>png</td>
+                        <td> <button type="button" class="btn btn-info">' . image_type_to_mime_type(exif_imagetype($img['img'])). '</button></td>
                         <td>
                             <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         </td>

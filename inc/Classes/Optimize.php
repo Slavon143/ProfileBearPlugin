@@ -43,6 +43,7 @@ class Optimize
         return $files;
     }
 
+
     public function AddNewImgToDB()
     {
         global $wpdb;
