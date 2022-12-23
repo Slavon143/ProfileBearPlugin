@@ -17,12 +17,10 @@ class Enqueue extends BaseController
 	
 	function enqueue() {
         // enqueue all our scripts
-        wp_enqueue_script( 'bootstrap_script', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' );
-        wp_enqueue_style( 'bootstrap_style', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css' );
 
+        wp_enqueue_style( 'googleapis', 'https://fonts.googleapis.com/icon?family=Material+Icons' );
 		wp_enqueue_style( 'mypluginstyle', $this->plugin_url . '/assets/mystyle.css' );
 		wp_enqueue_script( 'mypluginscript', $this->plugin_url . '/assets/myscript.js' );
-
 
 	}
 }
