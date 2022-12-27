@@ -3,6 +3,7 @@
 use Inc\Classes\MyFunctions;
 
 $db = new MyFunctions();
+$file = new \Inc\Classes\File();
 
 $limit = 500;
 $page = isset($_GET['pagin']) ? $_GET['pagin'] : 1;
@@ -117,10 +118,9 @@ $getAll = $db->getAllImg($start, $limit, $search);
                                 <th>Status</th>
                                 <th>Name</th>
                                 <th>Format</th>
-                                <th>Actions</th>
                             </tr>
                             </thead>
-                            <tbody style="overflow-y:auto;">
+                            <tbody style="overflow:auto;">
                             <?php foreach ($getAll as $img): ?>
                                 <?php
                                 $status = [];
@@ -148,10 +148,8 @@ $getAll = $db->getAllImg($start, $limit, $search);
                         <td><span style="color: white" class="badge ' . current($status) . '"> ' . key($status) . ' </span></td>
                         <td>' . $img['img'] .
                                     '</td>
-                        <td> <button type="button" class="btn btn-info">' . image_type_to_mime_type(exif_imagetype($img['img'])). '</button></td>
-                        <td>
-                            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        </td>
+                        <td> <button type="button" class="btn btn-info">' . $file->getExtImg($img['img']). '</button></td>
+
                     </tr>
                         ';
                                 ?>
@@ -166,6 +164,10 @@ $getAll = $db->getAllImg($start, $limit, $search);
                         <ul class="pagination">
                             <li class="page-item disabled"><a href="<?php echo $request_uri ?>&pagin=<?php echo $previous; ?>">Previous</a>
                             </li>
+                            <?php
+                            echo '<pre>';
+                            var_dump($pages);
+                            ?>
                             <?php for ($i = 1; $i <= $pages; $i++): ?>
                                 <?php if ($i === (int)$page): ?>
                                     <li class="page-item active"><a href="&pagin=<?php echo $i; ?>" class="page-link"><?php echo
