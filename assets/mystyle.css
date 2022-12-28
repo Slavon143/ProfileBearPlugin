@@ -1,0 +1,19 @@
+#dtVerticalScrollExample th:first-child{
+    width: 10px;
+}
+#dtVerticalScrollExample th:last-child{
+    width: 10px;
+}
+#dtVerticalScrollExample{
+    margin-top: 15px;
+}
+.table-title{
+    margin-top: 15px;
+}
+.rounded{
+    max-width: 330px;
+}
+#myTab{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
