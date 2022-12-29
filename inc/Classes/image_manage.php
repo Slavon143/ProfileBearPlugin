@@ -19,11 +19,6 @@ if (!empty($_POST)){
 }
 ?>
 
-
-
-
-
-
 <form action="" method="post" name="chose_img">
     <div class="table-title">
         <div class="row">

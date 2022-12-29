@@ -17,3 +17,17 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.form-check-label{
+    margin-left: 15px;
+}
+.percentage{
+    margin-right: 10px!important;
+}
+
+.toggle.ios, .toggle-on.ios, .toggle-off.ios {
+    border-radius: 20rem;
+}
+
+.toggle.ios .toggle-handle {
+    border-radius: 20rem;
+}

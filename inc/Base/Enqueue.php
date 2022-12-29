@@ -22,12 +22,10 @@ class Enqueue extends BaseController
 		wp_enqueue_style( 'mypluginstyle', $this->plugin_url . '/assets/mystyle.css' );
 		wp_enqueue_style( 'bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css' );
 
-
 		wp_enqueue_script( 'jquery', 'https://code.jquery.com/jquery-3.2.1.slim.min.js' );
 		wp_enqueue_script( 'popper', 'https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js' );
 		wp_enqueue_script( 'bootstrapJs', 'https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js' );
 		wp_enqueue_script( 'mypluginscript', $this->plugin_url . 'assets/myscript.js' );
-
 
 	}
 }

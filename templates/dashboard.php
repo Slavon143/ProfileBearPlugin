@@ -61,7 +61,6 @@ $timeUpdate = get_option('optimize_img_time_update');
                 <?
             }
             ?>
-
         </div>
         <div class="col-md-3">
             <div class="card border-success mb-3" style="max-width: 18rem;">
