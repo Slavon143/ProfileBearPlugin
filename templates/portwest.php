@@ -1,8 +1,8 @@
 <?php
 
-use Inc\Classes\Parsers;
+use Inc\Classes\MyFunctions;
 
-$parser = new Parsers();
+$parser = new MyFunctions();
 if ( ! empty( $_POST ) ) {
 	if ( $parser->add_settings( $_POST ) ) {
 		echo '
