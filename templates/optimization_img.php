@@ -22,7 +22,7 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 	    <?php
-	    require_once plugin_dir_path(__FILE__) . '../inc/Classes/image_manage.php';
+	    require_once plugin_dir_path(__FILE__) . '../templates/image_manage.php';
 	    ?>
     </div>
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
