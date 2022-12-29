@@ -59,7 +59,7 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
                     <br>
                     <p>
                         Present value:
-						<?php echo( empty( $porewest_set_update_percentage ) ?
+						<?php echo( !empty( $porewest_set_update_percentage ) ?
 							$porewest_set_update_percentage : 0 ) ?>
                         %
                     </p>
