@@ -17,6 +17,7 @@ if ( ! empty( $_POST ) ) {
 	}
 }
 $bastadgruppen_enable                = esc_attr( get_option( 'bastadgruppen_enable' ) );
+$bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_update_percentage' ) );
 ?>
 <!doctype html>
 <html lang="en">
@@ -83,7 +84,7 @@ $bastadgruppen_enable                = esc_attr( get_option( 'bastadgruppen_enab
             </form>
         </div>
         <div class="col-md-6">
-	        <?php require_once __DIR__ . '/../widgets/bastadgruppen_widget.php'?>
+			<?php require_once __DIR__ . '/../widgets/bastadgruppen_widget.php' ?>
         </div>
     </div>
 </div>

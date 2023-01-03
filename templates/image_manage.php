@@ -31,9 +31,12 @@ if (!empty($_POST)){
                 <input style="margin-bottom: 15px" name="search" type="search" class="form-control rounded"
                        placeholder="Search"
                        aria-label="Search" aria-describedby="search-addon" value="<?php echo $search ?>"/>
-                <input class="btn btn-danger" type="submit" name="delete" value="Delete">
-                <input class="btn btn-success" type="submit" name="edit" value="Change Status">
-                <input class="btn btn-secondary" type="submit" name="edit_secondary" value="Change Status">
+                <input class="btn btn-danger" type="submit" name="delete" value="Delete"
+                       onclick="return confirm('Confirm deletion?')">
+                <input class="btn btn-success" type="submit" name="edit" value="Change Status"
+                       onclick="return confirm('Confirm change status: Optimise?')">
+                <input class="btn btn-secondary" type="submit" name="edit_secondary" value="Change Status"
+                       onclick="return confirm('Confirm change status: Optimise?')">
             </div>
         </div>
     </div>
