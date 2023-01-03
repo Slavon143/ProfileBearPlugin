@@ -16,7 +16,7 @@ if ( ! empty( $_POST ) ) {
         ';
 	}
 }
-$jobman_enable                    = esc_attr( get_option( 'jobman_enable' ) );
+$jobman_enable = esc_attr( get_option( 'jobman_enable' ) );
 ?>
 <!doctype html>
 <html lang="en">
@@ -82,7 +82,9 @@ $jobman_enable                    = esc_attr( get_option( 'jobman_enable' ) );
                 <input type="submit" value="submit_jobman_settings" class="btn btn-primary">
             </form>
         </div>
-        <?php require_once __DIR__ . '/../widgets/jobman_widget.php'?>
+		<div class="col-md-6">
+			<?php require_once __DIR__ . '/../widgets/jobman_widget.php' ?>
+        </div>
     </div>
 </div>
 <!-- Optional JavaScript -->

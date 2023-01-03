@@ -1,19 +1,3 @@
-<?php
-
-namespace Inc\Classes;
-$path = $_SERVER['DOCUMENT_ROOT'];
-include_once $path . '/wp-load.php';
-
-global $wpdb;
-
-$img_status = get_option('optimize_img');
-$total = $wpdb->get_results("SELECT COUNT(`id`) FROM `optimize_img`", ARRAY_N);
-$complete = $wpdb->get_results("SELECT COUNT(`id`) FROM `optimize_img` WHERE `done` = 1", ARRAY_N);
-$memory = $wpdb->get_results("SELECT SUM(`diff`) FROM `optimize_img` WHERE `done` = 1", ARRAY_N);
-$error = $wpdb->get_results("SELECT COUNT(`id`) FROM `optimize_img` WHERE `error` <> ''", ARRAY_N);
-$quality = (int)get_option('optimize_quality_img');
-$timeUpdate = get_option('optimize_img_time_update');
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,75 +15,26 @@ $timeUpdate = get_option('optimize_img_time_update');
 <div class="container">
     <div class="row">
         <div class="col-md-3">
+			<?php
+			require_once __DIR__ . '/../widgets/img_manage_widget.php';
+			?>
+        </div>
+        <div class="col-md-3">
             <?php
-            if ($img_status) {
-                ?>
-                <div class="card border-success mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparent border-success">Optimization IMG</div>
-                    <div class="card-body text-success">
-                        <h5 class="card-title">Status: active</h5>
-                        <p class="card-text">Total img: <strong><?= $total[0][0] ?></strong></p>
-                        <p class="card-text">Complete: <strong><?= $complete[0][0] ?></strong></p>
-                        <p class="card-text">Launch every: <strong><?= $timeUpdate ?></strong> clock</p>
-
-                        <p class="card-text">Quality: <strong><?= $quality?></strong></p>
-                        <p class="card-text">Memory: <strong> <?= round($memory[0][0] / 1024 / 1024, 2) ?></strong> Mb</p>
-                        <p class="card-text">Error: <strong><?= $error[0][0] ?></strong></p>
-                    </div>
-                    <div class="card-footer bg-transparent border-success"></div>
-                </div>
-                <?
-            } else {
-                ?>
-                <div class="card border-secondary mb-3" style="max-width: 18rem;">
-                    <div class="card-header bg-transparent border-secondary">Optimization IMG</div>
-                    <div class="card-body text-secondary">
-                        <h5 class="card-title">Status: deactivated</h5>
-                    </div>
-                    <div class="card-footer bg-transparent border-secondary"></div>
-                </div>
-                <?
-            }
+            require_once __DIR__ . '/../widgets/portwest_widget.php';
             ?>
         </div>
         <div class="col-md-3">
-            <div class="card border-success mb-3" style="max-width: 18rem;">
-                <div class="card-header bg-transparent border-success">Portwest import</div>
-                <div class="card-body text-success">
-                    <h5 class="card-title">Status: active</h5>
-                    <p class="card-text">Items loaded: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Updated products: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Launch every: <strong><?= rand(1,24)?> clock</strong></p>
-                </div>
-                <div class="card-footer bg-transparent border-success"></div>
-            </div>
+		    <?php
+		    require_once __DIR__ . '/../widgets/bastadgruppen_widget.php';
+		    ?>
         </div>
         <div class="col-md-3">
-            <div class="card border-success mb-3" style="max-width: 18rem;">
-                <div class="card-header bg-transparent border-success">Bastadgruppen import</div>
-                <div class="card-body text-success">
-                    <h5 class="card-title">Status: active</h5>
-                    <p class="card-text">Items loaded: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Updated products: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Launch every: <strong><?= rand(1,24)?> clock</strong></p>
-                </div>
-                <div class="card-footer bg-transparent border-success"></div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card border-success mb-3" style="max-width: 18rem;">
-                <div class="card-header bg-transparent border-success">Jobman import</div>
-                <div class="card-body text-success">
-                    <h5 class="card-title">Status: active</h5>
-                    <p class="card-text">Items loaded: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Updated products: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Launch every: <strong><?= rand(1,24)?> clock</strong></p>
-                </div>
-                <div class="card-footer bg-transparent border-success"></div>
-            </div>
+		    <?php
+		    require_once __DIR__ . '/../widgets/jobman_widget.php';
+		    ?>
         </div>
     </div>
-
 </div>
 
 <!-- Optional JavaScript -->

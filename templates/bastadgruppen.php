@@ -82,7 +82,9 @@ $bastadgruppen_enable                = esc_attr( get_option( 'bastadgruppen_enab
                 <input type="submit" value="submit_bastadgruppen_settings" class="btn btn-primary">
             </form>
         </div>
-        <?php require_once __DIR__ . '/../widgets/bastadgruppen_widget.php'?>
+        <div class="col-md-6">
+	        <?php require_once __DIR__ . '/../widgets/bastadgruppen_widget.php'?>
+        </div>
     </div>
 </div>
 <!-- Optional JavaScript -->
