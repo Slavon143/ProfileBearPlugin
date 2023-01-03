@@ -19,7 +19,8 @@ if ( ! empty( $_POST ) ) {
 $portwest_enable                = esc_attr( get_option( 'portwest_enable' ) );
 $porewest_set_update_hour       = esc_attr( get_option( 'porewest_set_update_hour' ) );
 $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_percentage' ) );
-
+$portewest_get_count_products_update = esc_attr( get_option( 'portwest_products_update' ) );
+$portwest_last_update = esc_attr( get_option( 'portwest_last_update' ) );
 ?>
 <!doctype html>
 <html lang="en">
@@ -42,16 +43,21 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
         <div class="col-md-6">
             <form method="post" name="portwest" action="">
                 <div class="form-group">
-					<?php
-					echo '<input name="portwest_enable" type="checkbox" ' . ( $portwest_enable == 'on' ? 'checked' : '' ) . ' data-toggle="toggle" data-style="ios">';
-					?>
+                    <label class="switch">
+                        <input type="hidden" name="portwest_enable"
+                               value="<?php echo ( $portwest_enable == '1' ) ? '1' : '0'
+						       ?>"><input
+							<?php echo ( $portwest_enable == '1' ) ? 'checked="checked"' : ''
+							?>type="checkbox" onclick="this
+                    .previousSibling.value=1-this.previousSibling.value">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
-
                 <div class="form-group">
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
                     <input type="range" class="regular-text percentage" min="0" max="100"
                            name="porewest_set_update_percentage"
-                           value="<?php echo( !empty( $porewest_set_update_percentage ) ?
+                           value="<?php echo( ! empty( $porewest_set_update_percentage ) ?
 						       $porewest_set_update_percentage : 0 ) ?>"
                            placeholder="percentage" oninput="this.nextElementSibling.value = this.value">
                     <output></output>
@@ -59,7 +65,7 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
                     <br>
                     <p>
                         Present value:
-						<?php echo( !empty( $porewest_set_update_percentage ) ?
+						<?php echo( ! empty( $porewest_set_update_percentage ) ?
 							$porewest_set_update_percentage : 0 ) ?>
                         %
                     </p>
@@ -76,25 +82,29 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
                     </select>
                     <label for="exampleFormControlSelect1">Update
                         every: <?php echo( isset( $porewest_set_update_hour ) ?
-			                $porewest_set_update_hour : 24 ) ?> hours</label>
+							$porewest_set_update_hour : 24 ) ?> hours</label>
                 </div>
                 <input type="submit" value="submit_portwest_settings" class="btn btn-primary">
             </form>
         </div>
+
         <div class="col-md-6">
-            <?php echo '
-            <div class="card ' .( $portwest_enable == 'on' ? 'border-success' : 'border-secondary' ). ' mb-3" style="max-width: 18rem;">
-                <div class="card-header bg-transparent ' .( $portwest_enable == 'on' ? 'border-success' : 'border-secondary' ). '">Portwest import</div>
-                <div class="card-body ' .( $portwest_enable == 'on' ? 'text-success' : 'text-secondary' ). '">
-                    <h5 class="card-title">Status: ' .( $portwest_enable == 'on' ? 'Active' : 'Inactive' ). '</h5>
-                    <p class="card-text">Items loaded: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Updated products: <strong><?= rand(1,100)?></strong></p>
+			<?php echo '
+            <div class="card ' . ( $portwest_enable == '1' ? 'border-success' : 'border-secondary' ) . ' mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent ' . ( $portwest_enable == '1' ? 'border-success' : 'border-secondary' ) . '">Portwest import</div>
+                <div class="card-body ' . ( $portwest_enable == '1' ? 'text-success' : 'text-secondary' ) . '">
+                    <h5 class="card-title">Status: ' . ( $portwest_enable == '1' ? 'Active' : 'Inactive' ) . '</h5>
+                   <p class="card-text">Updated products: <strong> ' .
+			           ($portewest_get_count_products_update?$portewest_get_count_products_update:0). '</strong></p>
+                    <p class="card-text">Percentage to products: <strong> ' .$porewest_set_update_percentage. ' </strong></p>
                     <p class="card-text">Launch every: <strong>' .( $porewest_set_update_hour ?
-                    $porewest_set_update_hour : '' ). '</strong> clock</p>
+					$porewest_set_update_hour : '' ). '</strong> hours</p>
+                    <p class="card-text">Last update: <strong>' .( $portwest_last_update ?
+					$portwest_last_update : '' ). '</strong></p>
                 </div>
-                <div class="card-footer bg-transparent ' .( $portwest_enable == 'on' ? 'border-success' : 'border-secondary' ). '"></div>
+                <div class="card-footer bg-transparent ' . ( $portwest_enable == '1' ? 'border-success' : 'border-secondary' ) . '"></div>
             </div>
-            ';?>
+            '; ?>
         </div>
     </div>
 </div>

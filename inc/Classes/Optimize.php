@@ -18,10 +18,6 @@ class Optimize
 
     public function __construct()
     {
-        $onOff = get_option('optimize_img');
-            if (empty($onOff)){
-               return;
-            }
 
         $jpeg = get_option('optimize_jpeg');
         $jpg = get_option('optimize_jpg');
@@ -56,13 +52,14 @@ class Optimize
                 $queryStr .= "(NULL, '$dir', '0', NULL, NULL),";
             }
         }
+
         if (!empty($queryStr)){
             $queryStr = substr($queryStr, 0, -1);
             $wpdb->query("INSERT INTO `optimize_img` (`id`, `img`, `done`, `error`, `diff`) VALUES $queryStr ;");
         }
         $this->checkImgEmpty($getAllImgDb);
     }
-//DELETE FROM `optimize_img` WHERE `img` = 'C:/OSPanel/domains/wptest/wp-content/uploads/2022/08/00e18f0672ad9cc84deabdb4ba51ffdb-300x214.png' OR `img`= 'C:/OSPanel/domains/wptest/wp-content/uploads/2022/08/00e18f0672ad9cc84deabdb4ba51ffdb-500x281.png';
+
     public function checkImgEmpty($arr){
         global $wpdb;
         $queryStr = '';
@@ -73,9 +70,10 @@ class Optimize
                 }
             }
         }
+
         if (!empty($queryStr)){
             $queryStr = substr($queryStr, 0, -2);
-            $wpdb->query("DELETE FROM `optimize_img` WHERE $queryStr;");
+	        $wpdb->query("DELETE FROM `optimize_img` WHERE $queryStr;");
         }
 
     }
@@ -124,20 +122,23 @@ class Optimize
 
         if (!empty($getNotOptimizeImg)){
             foreach ($this->generatorImg($getNotOptimizeImg) as $img){
-                $fileInfo = pathinfo($img[1]);
-                $filesize = filesize($img[1]);
+	            $onOff = get_option('optimize_img');
+	            if (!empty($onOff)){
+		            $fileInfo = pathinfo($img[1]);
+		            $filesize = filesize($img[1]);
 
-                if ($this->settingsexts[$fileInfo['extension']] == 1){
-                    $optimizeImg = $optimize->ImgOptimize($img[1], $this->quality, $fileInfo['extension']);
-                    if ($optimizeImg){
-                        $diff = $filesize - $optimizeImg;
-                        $wpdb->update("optimize_img", ['done' => '1', 'diff' => $diff], ['id' => $img[0]]);
-                    }else{
-                        $wpdb->update("optimize_img", ['error' => $img[1]], ['id' => $img[0]]);
-                    }
-                }else{
-                    return;
-                }
+		            if ($this->settingsexts[$fileInfo['extension']] == 1){
+			            $optimizeImg = $optimize->ImgOptimize($img[1], $this->quality, $fileInfo['extension']);
+			            if ($optimizeImg){
+				            $diff = $filesize - $optimizeImg;
+				            $wpdb->update("optimize_img", ['done' => '1', 'diff' => $diff], ['id' => $img[0]]);
+			            }else{
+				            $wpdb->update("optimize_img", ['error' => $img[1]], ['id' => $img[0]]);
+			            }
+		            }else{
+			            return;
+		            }
+	            }
             }
         }
     }

@@ -19,6 +19,8 @@ if ( ! empty( $_POST ) ) {
 $bastadgruppen_enable                = esc_attr( get_option( 'bastadgruppen_enable' ) );
 $bastadgruppen_set_update_hour       = esc_attr( get_option( 'bastadgruppen_set_update_hour' ) );
 $bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_update_percentage' ) );
+$bastadgruppen_products_update = esc_attr( get_option( 'bastadgruppen_products_update' ) );
+$bastadgruppen_last_update = esc_attr( get_option( 'bastadgruppen_last_update' ) );
 ?>
 <!doctype html>
 <html lang="en">
@@ -41,10 +43,15 @@ $bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_
         <div class="col-md-6">
             <form method="post" name="bastadgruppen" action="">
                 <div class="form-group">
-					<?php
-					echo '<input name="bastadgruppen_enable" type="checkbox" ' . ( $bastadgruppen_enable == 'on' ? 'checked' : '' ) .
-					     ' data-toggle="toggle" data-style="ios">';
-					?>
+                    <label class="switch">
+                        <input type="hidden" name="bastadgruppen_enable"
+                               value="<?php echo ( $bastadgruppen_enable == '1' ) ? '1' : '0'
+			                   ?>"><input
+				            <?php echo ( $bastadgruppen_enable == '1' ) ? 'checked="checked"' : ''
+				            ?>type="checkbox" onclick="this
+                    .previousSibling.value=1-this.previousSibling.value">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
                 <div class="form-group">
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
@@ -81,16 +88,19 @@ $bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_
         </div>
         <div class="col-md-6">
 			<?php echo '
-            <div class="card ' .( $bastadgruppen_enable == 'on' ? 'border-success' : 'border-secondary' ). ' mb-3" style="max-width: 18rem;">
+            <div class="card ' .( $bastadgruppen_enable == '1' ? 'border-success' : 'border-secondary' ). ' mb-3" style="max-width: 18rem;">
                 <div class="card-header bg-transparent ' .( $bastadgruppen_enable == 'on' ? 'border-success' : 'border-secondary' ). '">bastadgruppen import</div>
-                <div class="card-body ' .( $bastadgruppen_enable == 'on' ? 'text-success' : 'text-secondary' ). '">
-                    <h5 class="card-title">Status: ' .( $bastadgruppen_enable == 'on' ? 'Active' : 'Inactive' ). '</h5>
-                    <p class="card-text">Items loaded: <strong><?= rand(1,100)?></strong></p>
-                    <p class="card-text">Updated products: <strong><?= rand(1,100)?></strong></p>
+                <div class="card-body ' .( $bastadgruppen_enable == '1' ? 'text-success' : 'text-secondary' ). '">
+                    <h5 class="card-title">Status: ' .( $bastadgruppen_enable == '1' ? 'Active' : 'Inactive' ). '</h5>
+                    <p class="card-text">Updated products: <strong> ' .
+			           ($bastadgruppen_products_update ? $bastadgruppen_products_update:0). '</strong></p>
+                    <p class="card-text">Percentage to products: <strong> ' .$bastadgruppen_set_update_percentage. ' </strong></p>
                     <p class="card-text">Launch every: <strong>' .( $bastadgruppen_set_update_hour ?
-					$bastadgruppen_set_update_hour : '' ). '</strong> clock</p>
+					$bastadgruppen_set_update_hour : '' ). '</strong> hours</p>
+                    <p class="card-text">Last update: <strong>' .( $bastadgruppen_last_update ?
+					$bastadgruppen_last_update : '' ). '</strong></p>
                 </div>
-                <div class="card-footer bg-transparent ' .( $bastadgruppen_enable == 'on' ? 'border-success' : 'border-secondary' ). '"></div>
+                <div class="card-footer bg-transparent ' .( $bastadgruppen_enable == '1' ? 'border-success' : 'border-secondary' ). '"></div>
             </div>
             ';?>
         </div>

@@ -6,12 +6,13 @@ include_once $path . '/wp-load.php';
 require __DIR__ . '/../inc/Classes/MyFunctions.php';
 
 $limit = (isset($_GET['limit'])) ? $_GET['limit'] : 100;
-$page = (isset($_GET['pagin'])) ? $_GET['pagin'] : 1;
+$page = (!empty($_GET['pagin'])) ? $_GET['pagin'] : 1;
 $links = (isset($_GET['links'])) ? $_GET['links'] : 4;
 $search = (isset($_POST['search'])) ? $_POST['search'] : null;
 $search = trim($search);
 $query = "SELECT * FROM `optimize_img`";
 $Paginator = new \Inc\Classes\Paginator($query);
+
 $results = $Paginator->getData($limit, $page,$search);
 $db = new \Inc\Classes\MyFunctions();
 $file = new \Inc\Classes\File();

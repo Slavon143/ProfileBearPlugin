@@ -21,13 +21,6 @@ class MyFunctions {
 
 	public function add_settings( $post ) {
 		if ( ! empty( $post ) && is_array( $post ) ) {
-			if (!array_key_exists('portwest_enable',$post)){
-				update_option( 'portwest_enable', 'off' );
-			}if (!array_key_exists('jobman_enable',$post)){
-				update_option( 'jobman_enable', 'off' );
-			}if (!array_key_exists('bastadgruppen_enable',$post)){
-				update_option( 'bastadgruppen_enable', 'off' );
-			}
 			foreach ( $post as $key => $value ) {
 				update_option( $key, $value );
 			}
@@ -89,6 +82,86 @@ class MyFunctions {
 
 		return $img_url_dir;
 	}
+
+	/*-------------------*/
+	/*Find prod ID by SKU*/
+	/*-------------------*/
+	public static function find_prod_id_by_sku( $sku_input ) {
+		global $wpdb;
+
+		$sku = $sku_input;
+
+		if ( ! $sku ) {
+			return null;
+		}
+		$product_id = $wpdb->get_var(
+			$wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value='%s' LIMIT 1",
+				$sku )
+		);
+		if ( ! empty( $product_id ) ) {
+			return $product_id;
+		}
+	}
+
+	/*-------------------*/
+	/*Find prod ID by EAN*/
+	/*-------------------*/
+	public static function find_prod_id_by_ean( $EAN_input ) {
+
+		global $wpdb;
+
+		$ean = $EAN_input;
+
+		if ( ! $ean ) {
+			return null;
+		}
+		$product_id = $wpdb->get_var(
+			$wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_fortnox_ean' AND meta_value='%s' LIMIT 1",
+				$ean )
+		);
+
+		if ( $product_id ) {
+			return $product_id;
+		}
+
+		return null;
+	}
+
+	/*----------------------------------------*/
+	/*Add custom external stock (Custom field)*/
+	/*----------------------------------------*/
+	public static function add_custom_external_stock( $prodIDtoChange, $stockValueToSet ) {
+		$stock = get_post_meta( $prodIDtoChange, '_stock' )[0];
+
+		if ( empty( $stock ) && empty( $stockValueToSet ) ) {
+			update_post_meta( $prodIDtoChange, '_stock_status', 'outofstock' );
+		} elseif ( ! empty( $stock ) ) {
+			update_post_meta( $prodIDtoChange, 'custom_field', $stockValueToSet );
+			update_post_meta( $prodIDtoChange, '_manage_stock', 'yes' );
+		} else {
+			update_post_meta( $prodIDtoChange, 'custom_field', $stockValueToSet );
+			update_post_meta( $prodIDtoChange, '_stock_status', 'onbackorder' );
+			update_post_meta( $prodIDtoChange, '_manage_stock', 'no' );
+		}
+	}
+
+	/*-------------------*/
+	/*Find prod ID by EAN*/
+	/*-------------------*/
+	public static function find_price_by_product_id( $product_id ) {
+
+		global $wpdb;
+
+		if ( ! $product_id ) {
+			return null;
+		}
+		$price = $wpdb->get_results("SELECT `meta_value` FROM $wpdb->postmeta WHERE `post_id` = $product_id AND `meta_key` LIKE '_price'", ARRAY_N);
+
+		if ( $price[0][0] ) {
+			return $price[0][0];
+		}
+	}
+
 }
 
 class File {
@@ -128,7 +201,8 @@ class Paginator {
 
 		$this->_query = $query;
 
-		$rs = $wpdb->get_results( $this->_query, ARRAY_A );;
+		$rs = $wpdb->get_results( $this->_query, ARRAY_A );
+
 		$this->_total = count( $rs );
 	}
 
@@ -140,12 +214,13 @@ class Paginator {
 		$this->_page  = $page;
 
 		if ( $this->_limit == 'all' ) {
-			$query = $this->_query; //SELECT * FROM `optimize_img` LIMIT 36700, 100;
+			$query = $this->_query;
 		} elseif ( ! empty( $search ) ) {
 			$query = $this->_query . "WHERE `img` LIKE '%$search%'";
 		} else {
 			$query = $this->_query . " LIMIT " . ( ( $this->_page - 1 ) * $this->_limit ) . ", $this->_limit";
 		}
+
 		$results = $wpdb->get_results( $query, ARRAY_A );
 
 		$result = new \stdClass();
@@ -165,7 +240,7 @@ class Paginator {
 
 		$last = ceil( $this->_total / $this->_limit );
 
-		$start = ( ( $this->_page - $links ) > 0 ) ? $this->_page - $links : 1;
+		$start = ( ( $this->_page - $links ) > 1 ) ? $this->_page - $links : 1;
 
 		$end = ( ( $this->_page + $links ) < $last ) ? $this->_page + $links : $last;
 
