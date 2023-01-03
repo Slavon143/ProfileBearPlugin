@@ -162,39 +162,6 @@ class Admin extends BaseController
                 )
             ),
             array(
-                'id' => 'optimize_jpg',
-                'title' => 'JPG',
-                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
-                'page' => 'profile_bear_plugin',
-                'section' => 'profile_bear_admin_index',
-                'args' => array(
-                    'label_for' => 'optimize_jpg',
-                    'class' => 'ui-toggle'
-                )
-            ),
-            array(
-                'id' => 'optimize_png',
-                'title' => 'PNG',
-                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
-                'page' => 'profile_bear_plugin',
-                'section' => 'profile_bear_admin_index',
-                'args' => array(
-                    'label_for' => 'optimize_png',
-                    'class' => 'ui-toggle'
-                )
-            ),
-            array(
-                'id' => 'optimize_jpeg',
-                'title' => 'JPEG',
-                'callback' => array( $this->callbacks_mngr, 'checkboxField' ),
-                'page' => 'profile_bear_plugin',
-                'section' => 'profile_bear_admin_index',
-                'args' => array(
-                    'label_for' => 'optimize_jpeg',
-                    'class' => 'ui-toggle'
-                )
-            ),
-            array(
                 'id' => 'optimize_quality_img',
                 'title' => 'Image quality: Where 100 is the best quality',
                 'callback' => array( $this->callbacks, 'profileBearSelectImgQuality' ),

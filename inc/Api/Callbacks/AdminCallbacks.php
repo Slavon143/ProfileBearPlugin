@@ -55,37 +55,14 @@ class AdminCallbacks extends BaseController
         if (empty($value)) {
             $value = 24;
         }
-        echo '
-
-<select name="optimize_img_time_update" class="optimize_img_time_update">
-  <option value="'.$value.'">'.$value.' Hour</option>
-  <option value="1">1 Hour</option>
-  <option value="2">2 Hour</option>
-  <option value="3">3 Hour</option>
-  <option value="4">4 Hour</option>
-  <option value="5">5 Hour</option>
-  <option value="6">6 Hour</option>
-  <option value="7">7 Hour</option>
-  <option value="8">8 Hour</option>
-  <option value="9">9 Hour</option>
-  <option value="10">10 Hour</option>
-  <option value="11">11 Hour</option>
-  <option value="12">12 Hour</option>
-  <option value="13">13 Hour</option>
-  <option value="14">14 Hour</option>
-  <option value="15">15 Hour</option>
-  <option value="16">16 Hour</option>
-  <option value="17">17 Hour</option>
-  <option value="18">18 Hour</option>
-  <option value="19">19 Hour</option>
-  <option value="20">20 Hour</option>
-  <option value="21">21 Hour</option>
-  <option value="22">22 Hour</option>
-  <option value="23">23 Hour</option>
-  <option value="24">24 Hour</option>
-
-</select>';
+        $html = '';
+        $html .= '<select name="optimize_img_time_update" class="optimize_img_time_update">';
+        $html .= '<option value="'.$value.'">'.$value.' Hour</option>';
+        for ($i = 1;$i <= 24;$i++){
+            $html .= '<option value="' .$i. '">' .$i. ' Hour</option>';
+        }
+        $html .= '</select>';
+        echo $html;
     }
 }
-
 ?>

@@ -12,7 +12,6 @@ class Optimize {
 	public $upload_dir;
 	public $dirs = [ 'uploads' ];
 	public $exts = [ 'png', 'jpg', 'jpeg' ];
-	public $settingsexts;
 	public $quality;
 	public $img_status;
 	public $timeUpdate;
@@ -20,11 +19,6 @@ class Optimize {
 	public function __construct() {
 		$this->img_status = get_option( 'optimize_img' );
 		$this->timeUpdate = (int) get_option( 'optimize_img_time_update' );
-		$jpeg             = get_option( 'optimize_jpeg' );
-		$jpg              = get_option( 'optimize_jpg' );
-		$png              = get_option( 'optimize_png' );
-
-		$this->settingsexts = compact( 'jpeg', 'jpg', 'png' );
 
 		$this->quality = (int) get_option( 'optimize_quality_img' );
 		$upload_dir    = wp_upload_dir();
@@ -123,16 +117,12 @@ class Optimize {
 					$fileInfo = pathinfo( $img[1] );
 					$filesize = filesize( $img[1] );
 
-					if ( $this->settingsexts[ $fileInfo['extension'] ] == 1 ) {
-						$optimizeImg = $optimize->ImgOptimize( $img[1], $this->quality, $fileInfo['extension'] );
-						if ( $optimizeImg ) {
-							$diff = $filesize - $optimizeImg;
-							$wpdb->update( "optimize_img", [ 'done' => '1', 'diff' => $diff ], [ 'id' => $img[0] ] );
-						} else {
-							$wpdb->update( "optimize_img", [ 'error' => $img[1] ], [ 'id' => $img[0] ] );
-						}
+					$optimizeImg = $optimize->ImgOptimize( $img[1], $this->quality, $fileInfo['extension'] );
+					if ( $optimizeImg ) {
+						$diff = $filesize - $optimizeImg;
+						$wpdb->update( "optimize_img", [ 'done' => '1', 'diff' => $diff ], [ 'id' => $img[0] ] );
 					} else {
-						return;
+						$wpdb->update( "optimize_img", [ 'error' => $img[1] ], [ 'id' => $img[0] ] );
 					}
 				}
 			}
