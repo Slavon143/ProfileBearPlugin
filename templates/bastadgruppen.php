@@ -19,8 +19,8 @@ if ( ! empty( $_POST ) ) {
 $bastadgruppen_enable                = esc_attr( get_option( 'bastadgruppen_enable' ) );
 $bastadgruppen_set_update_hour       = esc_attr( get_option( 'bastadgruppen_set_update_hour' ) );
 $bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_update_percentage' ) );
-$bastadgruppen_products_update = esc_attr( get_option( 'bastadgruppen_products_update' ) );
-$bastadgruppen_last_update = esc_attr( get_option( 'bastadgruppen_last_update' ) );
+$bastadgruppen_products_update       = esc_attr( get_option( 'bastadgruppen_products_update' ) );
+$bastadgruppen_last_update           = esc_attr( get_option( 'bastadgruppen_last_update' ) );
 ?>
 <!doctype html>
 <html lang="en">
@@ -46,9 +46,9 @@ $bastadgruppen_last_update = esc_attr( get_option( 'bastadgruppen_last_update' )
                     <label class="switch">
                         <input type="hidden" name="bastadgruppen_enable"
                                value="<?php echo ( $bastadgruppen_enable == '1' ) ? '1' : '0'
-			                   ?>"><input
-				            <?php echo ( $bastadgruppen_enable == '1' ) ? 'checked="checked"' : ''
-				            ?>type="checkbox" onclick="this
+						       ?>"><input
+							<?php echo ( $bastadgruppen_enable == '1' ) ? 'checked="checked"' : ''
+							?>type="checkbox" onclick="this
                     .previousSibling.value=1-this.previousSibling.value">
                         <span class="slider round"></span>
                     </label>
@@ -57,7 +57,7 @@ $bastadgruppen_last_update = esc_attr( get_option( 'bastadgruppen_last_update' )
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
                     <input type="range" class="regular-text percentage" min="0" max="100"
                            name="bastadgruppen_set_update_percentage"
-                           value="<?php echo( !empty( $bastadgruppen_set_update_percentage ) ?
+                           value="<?php echo( ! empty( $bastadgruppen_set_update_percentage ) ?
 						       $bastadgruppen_set_update_percentage : 0 ) ?>"
                            placeholder="percentage" oninput="this.nextElementSibling.value = this.value">
                     <output></output>
@@ -65,7 +65,7 @@ $bastadgruppen_last_update = esc_attr( get_option( 'bastadgruppen_last_update' )
                     <br>
                     <p>
                         Present value:
-						<?php echo( !empty( $bastadgruppen_set_update_percentage ) ?
+						<?php echo( ! empty( $bastadgruppen_set_update_percentage ) ?
 							$bastadgruppen_set_update_percentage : 0 ) ?>
                         %
                     </p>
@@ -73,14 +73,14 @@ $bastadgruppen_last_update = esc_attr( get_option( 'bastadgruppen_last_update' )
                 <br>
                 <div class="form-group">
                     <select class="form-control" id="exampleFormControlSelect1" name="bastadgruppen_set_update_hour">
-                        <option selected="selected"><?php echo( !empty( $bastadgruppen_set_update_hour ) ?
+                        <option selected="selected"><?php echo( ! empty( $bastadgruppen_set_update_hour ) ?
 								$bastadgruppen_set_update_hour : 24 ) ?></option>
 						<?php for ( $i = 1; $i <= 24; $i ++ ): ?>
                             <option><?php echo $i ?></option>
 						<?php endfor; ?>
                     </select>
                     <label for="exampleFormControlSelect1">Update
-                        every: <?php echo( !empty( $bastadgruppen_set_update_hour ) ?
+                        every: <?php echo( ! empty( $bastadgruppen_set_update_hour ) ?
 							$bastadgruppen_set_update_hour : 24 ) ?> hours</label>
                 </div>
                 <input type="submit" value="submit_bastadgruppen_settings" class="btn btn-primary">
@@ -88,21 +88,21 @@ $bastadgruppen_last_update = esc_attr( get_option( 'bastadgruppen_last_update' )
         </div>
         <div class="col-md-6">
 			<?php echo '
-            <div class="card ' .( $bastadgruppen_enable == '1' ? 'border-success' : 'border-secondary' ). ' mb-3" style="max-width: 18rem;">
-                <div class="card-header bg-transparent ' .( $bastadgruppen_enable == 'on' ? 'border-success' : 'border-secondary' ). '">bastadgruppen import</div>
-                <div class="card-body ' .( $bastadgruppen_enable == '1' ? 'text-success' : 'text-secondary' ). '">
-                    <h5 class="card-title">Status: ' .( $bastadgruppen_enable == '1' ? 'Active' : 'Inactive' ). '</h5>
+            <div class="card ' . ( $bastadgruppen_enable == '1' ? 'border-success' : 'border-secondary' ) . ' mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent ' . ( $bastadgruppen_enable == 'on' ? 'border-success' : 'border-secondary' ) . '">bastadgruppen import</div>
+                <div class="card-body ' . ( $bastadgruppen_enable == '1' ? 'text-success' : 'text-secondary' ) . '">
+                    <h5 class="card-title">Status: ' . ( $bastadgruppen_enable == '1' ? 'Active' : 'Inactive' ) . '</h5>
                     <p class="card-text">Updated products: <strong> ' .
-			           ($bastadgruppen_products_update ? $bastadgruppen_products_update:0). '</strong></p>
-                    <p class="card-text">Percentage to products: <strong> ' .$bastadgruppen_set_update_percentage. ' </strong></p>
-                    <p class="card-text">Launch every: <strong>' .( $bastadgruppen_set_update_hour ?
-					$bastadgruppen_set_update_hour : '' ). '</strong> hours</p>
-                    <p class="card-text">Last update: <strong>' .( $bastadgruppen_last_update ?
-					$bastadgruppen_last_update : '' ). '</strong></p>
+			           ( $bastadgruppen_products_update ? $bastadgruppen_products_update : 0 ) . '</strong></p>
+                    <p class="card-text">Percentage to products: <strong> ' . $bastadgruppen_set_update_percentage . ' </strong></p>
+                    <p class="card-text">Launch every: <strong>' . ( $bastadgruppen_set_update_hour ?
+					$bastadgruppen_set_update_hour : '' ) . '</strong> hours</p>
+                    <p class="card-text">Last update: <strong>' . ( $bastadgruppen_last_update ?
+					$bastadgruppen_last_update : '' ) . '</strong></p>
                 </div>
-                <div class="card-footer bg-transparent ' .( $bastadgruppen_enable == '1' ? 'border-success' : 'border-secondary' ). '"></div>
+                <div class="card-footer bg-transparent ' . ( $bastadgruppen_enable == '1' ? 'border-success' : 'border-secondary' ) . '"></div>
             </div>
-            ';?>
+            '; ?>
         </div>
     </div>
 </div>

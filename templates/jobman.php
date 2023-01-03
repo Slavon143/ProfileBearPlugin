@@ -16,11 +16,11 @@ if ( ! empty( $_POST ) ) {
         ';
 	}
 }
-$jobman_enable                = esc_attr( get_option( 'jobman_enable' ) );
-$jobman_set_update_hour       = esc_attr( get_option( 'jobman_set_update_hour' ) );
-$jobman_set_update_percentage = esc_attr( get_option( 'jobman_set_update_percentage' ) );
+$jobman_enable                    = esc_attr( get_option( 'jobman_enable' ) );
+$jobman_set_update_hour           = esc_attr( get_option( 'jobman_set_update_hour' ) );
+$jobman_set_update_percentage     = esc_attr( get_option( 'jobman_set_update_percentage' ) );
 $jobman_get_count_products_update = esc_attr( get_option( 'jobman_products_update' ) );
-$jobman_last_update = esc_attr( get_option( 'jobman_last_update' ) );
+$jobman_last_update               = esc_attr( get_option( 'jobman_last_update' ) );
 
 ?>
 <!doctype html>
@@ -47,9 +47,9 @@ $jobman_last_update = esc_attr( get_option( 'jobman_last_update' ) );
                     <label class="switch">
                         <input type="hidden" name="jobman_enable"
                                value="<?php echo ( $jobman_enable == '1' ) ? '1' : '0'
-			                   ?>"><input
-				            <?php echo ( $jobman_enable == '1' ) ? 'checked="checked"' : ''
-				            ?>type="checkbox" onclick="this
+						       ?>"><input
+							<?php echo ( $jobman_enable == '1' ) ? 'checked="checked"' : ''
+							?>type="checkbox" onclick="this
                     .previousSibling.value=1-this.previousSibling.value">
                         <span class="slider round"></span>
                     </label>
@@ -58,7 +58,7 @@ $jobman_last_update = esc_attr( get_option( 'jobman_last_update' ) );
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
                     <input type="range" class="regular-text percentage" min="0" max="100"
                            name="jobman_set_update_percentage"
-                           value="<?php echo( !empty( $jobman_set_update_percentage ) ?
+                           value="<?php echo( ! empty( $jobman_set_update_percentage ) ?
 						       $jobman_set_update_percentage : 0 ) ?>"
                            placeholder="percentage" oninput="this.nextElementSibling.value = this.value">
                     <output></output>
@@ -66,7 +66,7 @@ $jobman_last_update = esc_attr( get_option( 'jobman_last_update' ) );
                     <br>
                     <p>
                         Present value:
-						<?php echo( !empty( $jobman_set_update_percentage ) ?
+						<?php echo( ! empty( $jobman_set_update_percentage ) ?
 							$jobman_set_update_percentage : 0 ) ?>
                         %
                     </p>
@@ -74,14 +74,14 @@ $jobman_last_update = esc_attr( get_option( 'jobman_last_update' ) );
                 <br>
                 <div class="form-group">
                     <select class="form-control" id="exampleFormControlSelect1" name="jobman_set_update_hour">
-                        <option selected="selected"><?php echo( !empty( $jobman_set_update_hour ) ?
+                        <option selected="selected"><?php echo( ! empty( $jobman_set_update_hour ) ?
 								$jobman_set_update_hour : 24 ) ?></option>
 						<?php for ( $i = 1; $i <= 24; $i ++ ): ?>
                             <option><?php echo $i ?></option>
 						<?php endfor; ?>
                     </select>
                     <label for="exampleFormControlSelect1">Update
-                        every: <?php echo( !empty( $jobman_set_update_hour ) ?
+                        every: <?php echo( ! empty( $jobman_set_update_hour ) ?
 							$jobman_set_update_hour : 24 ) ?> hours</label>
                 </div>
                 <input type="submit" value="submit_jobman_settings" class="btn btn-primary">
@@ -89,21 +89,21 @@ $jobman_last_update = esc_attr( get_option( 'jobman_last_update' ) );
         </div>
         <div class="col-md-6">
 			<?php echo '
-            <div class="card ' .( $jobman_enable == '1' ? 'border-success' : 'border-secondary' ). ' mb-3" style="max-width: 18rem;">
-                <div class="card-header bg-transparent ' .( $jobman_enable == '1' ? 'border-success' : 'border-secondary' ). '">Jobman import</div>
-                <div class="card-body ' .( $jobman_enable == '1' ? 'text-success' : 'text-secondary' ). '">
-                    <h5 class="card-title">Status: ' .( $jobman_enable == '1' ? 'Active' : 'Inactive' ). '</h5>
+            <div class="card ' . ( $jobman_enable == '1' ? 'border-success' : 'border-secondary' ) . ' mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent ' . ( $jobman_enable == '1' ? 'border-success' : 'border-secondary' ) . '">Jobman import</div>
+                <div class="card-body ' . ( $jobman_enable == '1' ? 'text-success' : 'text-secondary' ) . '">
+                    <h5 class="card-title">Status: ' . ( $jobman_enable == '1' ? 'Active' : 'Inactive' ) . '</h5>
                     <p class="card-text">Updated products: <strong> ' .
-                       ($jobman_get_count_products_update?$jobman_get_count_products_update:0). '</strong></p>
-                    <p class="card-text">Percentage to products: <strong> ' .$jobman_set_update_percentage. ' </strong></p>
-                    <p class="card-text">Launch every: <strong>' .( $jobman_set_update_hour ?
-					$jobman_set_update_hour : '' ). '</strong> hours</p>
-                    <p class="card-text">Last update: <strong>' .( $jobman_last_update ?
-					$jobman_last_update : '' ). '</strong></p>
+			           ( $jobman_get_count_products_update ? $jobman_get_count_products_update : 0 ) . '</strong></p>
+                    <p class="card-text">Percentage to products: <strong> ' . $jobman_set_update_percentage . ' </strong></p>
+                    <p class="card-text">Launch every: <strong>' . ( $jobman_set_update_hour ?
+					$jobman_set_update_hour : '' ) . '</strong> hours</p>
+                    <p class="card-text">Last update: <strong>' . ( $jobman_last_update ?
+					$jobman_last_update : '' ) . '</strong></p>
                 </div>
-                <div class="card-footer bg-transparent ' .( $jobman_enable == '1' ? 'border-success' : 'border-secondary' ). '"></div>
+                <div class="card-footer bg-transparent ' . ( $jobman_enable == '1' ? 'border-success' : 'border-secondary' ) . '"></div>
             </div>
-            ';?>
+            '; ?>
         </div>
     </div>
 </div>

@@ -24,8 +24,9 @@ class MyFunctions {
 			foreach ( $post as $key => $value ) {
 				update_option( $key, $value );
 			}
+
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -155,7 +156,7 @@ class MyFunctions {
 		if ( ! $product_id ) {
 			return null;
 		}
-		$price = $wpdb->get_results("SELECT `meta_value` FROM $wpdb->postmeta WHERE `post_id` = $product_id AND `meta_key` LIKE '_price'", ARRAY_N);
+		$price = $wpdb->get_results( "SELECT `meta_value` FROM $wpdb->postmeta WHERE `post_id` = $product_id AND `meta_key` LIKE '_price'", ARRAY_N );
 
 		if ( $price[0][0] ) {
 			return $price[0][0];
@@ -174,7 +175,7 @@ class File {
 		}
 	}
 
-	public function getStatus( $arr ):array {
+	public function getStatus( $arr ): array {
 		$status = [];
 		if ( $arr == 1 ) {
 			$status = [
@@ -185,6 +186,7 @@ class File {
 				'Not optimized' => 'btn-secondary'
 			];
 		}
+
 		return $status;
 	}
 }
