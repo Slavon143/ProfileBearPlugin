@@ -4,26 +4,25 @@ namespace Inc\Classes;
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
 
-use Inc\Classes\LogsProfelebear;
-use Inc\Classes\MyFunctions;
-use PHPMailer\PHPMailer\Exception;
-use Inc\Classes\PCrone;
-
 final class ProfileBearParsers {
 
-	const PORTWEST = 'portwest';
-	const JOBMAN = 'jobman';
-	const BASTA = 'basta';
+	public function __construct() {
+		$portwest_enable      = esc_attr( get_option( 'portwest_enable' ) );
+		$jobman_enable        = esc_attr( get_option( 'jobman_enable' ) );
+		$bastadgruppen_enable = esc_attr( get_option( 'bastadgruppen_enable' ) );
 
-	public static function factory( string $type ): ParserProfileBear {
-		switch ( $type ):
-			case self::PORTWEST:
-				return new ParserPortwest();
-			case self::BASTA:
-				return new ParserBasta();
-			case self::JOBMAN:
-				return new ParserJobman();
-		endswitch;
+		if ($portwest_enable == '1'){
+			$portwest = new ParserPortwest();
+			$portwest->run();
+		}
+		if ($jobman_enable == '1'){
+			$jobman = new ParserJobman();
+			$jobman->run();
+		}
+		if ($bastadgruppen_enable == '1'){
+			$bastadgruppen = new ParserBasta();
+			$bastadgruppen->run();
+		}
 	}
 }
 

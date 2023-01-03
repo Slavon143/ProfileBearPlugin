@@ -189,6 +189,7 @@ class File {
 
 		return $status;
 	}
+
 }
 
 class Paginator {

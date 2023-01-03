@@ -14,12 +14,15 @@ class Optimize {
 	public $exts = [ 'png', 'jpg', 'jpeg' ];
 	public $settingsexts;
 	public $quality;
+	public $img_status;
+	public $timeUpdate;
 
 	public function __construct() {
-
-		$jpeg = get_option( 'optimize_jpeg' );
-		$jpg  = get_option( 'optimize_jpg' );
-		$png  = get_option( 'optimize_png' );
+		$this->img_status = get_option( 'optimize_img' );
+		$this->timeUpdate = (int) get_option( 'optimize_img_time_update' );
+		$jpeg             = get_option( 'optimize_jpeg' );
+		$jpg              = get_option( 'optimize_jpg' );
+		$png              = get_option( 'optimize_png' );
 
 		$this->settingsexts = compact( 'jpeg', 'jpg', 'png' );
 
@@ -37,7 +40,6 @@ class Optimize {
 		return $files;
 	}
 
-
 	public function AddNewImgToDB() {
 		global $wpdb;
 		$getAllImgDb = $wpdb->get_results( "SELECT * FROM `optimize_img`", ARRAY_N );
@@ -54,6 +56,7 @@ class Optimize {
 			$queryStr = substr( $queryStr, 0, - 1 );
 			$wpdb->query( "INSERT INTO `optimize_img` (`id`, `img`, `done`, `error`, `diff`) VALUES $queryStr ;" );
 		}
+
 		$this->checkImgEmpty( $getAllImgDb );
 	}
 
@@ -67,12 +70,11 @@ class Optimize {
 				}
 			}
 		}
-
 		if ( ! empty( $queryStr ) ) {
 			$queryStr = substr( $queryStr, 0, - 2 );
 			$wpdb->query( "DELETE FROM `optimize_img` WHERE $queryStr;" );
 		}
-
+		$this->checkImg();
 	}
 
 	public function searchImgGenerator( $arrGroupsInXml, $key, $search ) {
@@ -135,6 +137,20 @@ class Optimize {
 				}
 			}
 		}
+	}
+
+	public function run() {
+		if ( $this->img_status == '0' ) {
+			return;
+		}
+		$timeToUpdate = $this->timeUpdate * 3600;
+		$crone        = new PCrone( 'Img optimizer', $timeToUpdate, "Update ever: " . $timeToUpdate / 3600 . ' Hours' );
+
+		add_filter( 'cron_schedules', [ $crone, 'cron_add_five_min' ] );
+
+		add_action( 'wp', [ $crone, 'my_activation' ] );
+
+		add_action( 'Img optimizer', [ $this, 'AddNewImgToDB' ] );
 	}
 
 	public function debug( $arr ) {

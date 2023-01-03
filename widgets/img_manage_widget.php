@@ -18,7 +18,7 @@ $timeUpdate = get_option('optimize_img_time_update');
         <h5 class="card-title"><?php echo ($img_status == '1') ? 'Status: active' : 'Status: inactive' ?></h5>
         <p class="card-text">Total img: <strong><?php echo $total[0][0] ?></strong></p>
         <p class="card-text">Complete: <strong><?php echo $complete[0][0] ?></strong></p>
-        <p class="card-text">Launch every: <strong><?php echo $timeUpdate ?></strong> clock</p>
+        <p class="card-text">Launch every: <strong><?php echo $timeUpdate ?></strong> hours</p>
 
         <p class="card-text">Quality: <strong><?php echo $quality?></strong></p>
         <p class="card-text">Memory: <strong> <?php echo round($memory[0][0] / 1024 / 1024, 2) ?></strong> Mb</p>
