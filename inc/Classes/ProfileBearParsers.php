@@ -4,9 +4,6 @@ namespace Inc\Classes;
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
 
-require_once 'MyFunctions.php';
-require_once 'LogsProfelebear.php';
-
 set_time_limit(-1);
 
 final class ProfileBearParsers {

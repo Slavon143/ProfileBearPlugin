@@ -30,9 +30,9 @@ if (!empty($_POST)){
             <div class="col-sm-6">
                 <input style="margin-bottom: 15px" name="search" type="search" class="form-control rounded"
                        placeholder="Search"
-                       aria-label="Search" aria-describedby="search-addon" value="<?php echo $search ?>"/>
+                       aria-label="Search" aria-describedby="search-addon" value="<?php echo $search ?>">
                 <input class="btn btn-danger" type="submit" name="delete" value="Delete"
-                       onclick="return confirm('Confirm deletion?')">
+                       onclick="return confirm('Confirm?')">
                 <input class="btn btn-success" type="submit" name="edit" value="Change Status"
                        onclick="return confirm('Confirm change status: Optimise?')">
                 <input class="btn btn-secondary" type="submit" name="edit_secondary" value="Change Status"

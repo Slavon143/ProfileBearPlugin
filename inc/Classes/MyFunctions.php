@@ -209,7 +209,7 @@ class Paginator {
 		$this->_total = count( $rs );
 	}
 
-	public function getData( $limit = 10, $page = 1, $search ) {
+	public function getData( $limit, $page, $search ) {
 
 		global $wpdb;
 

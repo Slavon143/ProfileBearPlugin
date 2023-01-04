@@ -19,6 +19,8 @@ class Optimize {
 		$this->img_status = get_option( 'optimize_img' );
 		$this->timeUpdate = (int) get_option( 'optimize_img_time_update' );
 
+		$this->timeUpdate = $this->timeUpdate ? $this->timeUpdate : 24;
+
 		$this->quality = (int) get_option( 'optimize_quality_img' );
 		$upload_dir    = wp_upload_dir();
 		array_push( $this->dirs, $upload_dir['basedir'] );
@@ -67,6 +69,9 @@ class Optimize {
 			$queryStr = substr( $queryStr, 0, - 2 );
 			$wpdb->query( "DELETE FROM `optimize_img` WHERE $queryStr;" );
 		}
+		if ( $this->img_status == '0' ) {
+			return;
+		}
 		$this->checkImg();
 	}
 
@@ -112,28 +117,25 @@ class Optimize {
 
 		if ( ! empty( $getNotOptimizeImg ) ) {
 			foreach ( $this->generatorImg( $getNotOptimizeImg ) as $img ) {
-				$onOff = get_option( 'optimize_img' );
-				if ( ! empty( $onOff ) ) {
-					$fileInfo = pathinfo( $img[1] );
-					$filesize = filesize( $img[1] );
 
-					$optimizeImg = $optimize->ImgOptimize( $img[1], $this->quality, $fileInfo['extension'] );
-					if ( $optimizeImg ) {
-						$diff = $filesize - $optimizeImg;
-						$wpdb->update( "optimize_img", [ 'done' => '1', 'diff' => $diff ], [ 'id' => $img[0] ] );
-					} else {
-						$wpdb->update( "optimize_img", [ 'error' => $img[1] ], [ 'id' => $img[0] ] );
-					}
+				$fileInfo = pathinfo( $img[1] );
+				$filesize = filesize( $img[1] );
+
+				$optimizeImg = $optimize->ImgOptimize( $img[1], $this->quality, $fileInfo['extension'] );
+				if ( $optimizeImg ) {
+					$diff = $filesize - $optimizeImg;
+					$wpdb->update( "optimize_img", [ 'done' => '1', 'diff' => $diff ], [ 'id' => $img[0] ] );
+				} else {
+					$wpdb->update( "optimize_img", [ 'error' => $img[1] ], [ 'id' => $img[0] ] );
 				}
 			}
 		}
 	}
 
 	public function run() {
-		if ( $this->img_status == '0' ) {
-			return;
-		}
+
 		$timeToUpdate = $this->timeUpdate * 3600;
+
 		$crone        = new PCrone( 'Img optimizer', $timeToUpdate, "Update ever: " . $timeToUpdate / 3600 . ' Hours' );
 
 		add_filter( 'cron_schedules', [ $crone, 'cron_add_five_min' ] );
