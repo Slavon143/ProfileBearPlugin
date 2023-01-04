@@ -6,7 +6,7 @@
 namespace Inc\Classes;
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
-
+set_time_limit(-1);
 class Optimize {
 	public $upload_dir;
 	public $dirs = [ 'uploads' ];
@@ -105,8 +105,7 @@ class Optimize {
 	}
 
 	public function checkImg() {
-		set_time_limit(-1);
-		set_time_limit(0);
+
 		$optimize = new ManageImg();
 		global $wpdb;
 		$getNotOptimizeImg = $wpdb->get_results( "SELECT * FROM `optimize_img` WHERE `done` = 0", ARRAY_N );

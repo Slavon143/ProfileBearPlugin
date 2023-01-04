@@ -4,6 +4,11 @@ namespace Inc\Classes;
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
 
+require_once 'MyFunctions.php';
+require_once 'LogsProfelebear.php';
+
+set_time_limit(-1);
+
 final class ProfileBearParsers {
 
 	public function __construct() {
@@ -62,8 +67,8 @@ class ParserPortwest implements ParserProfileBear {
 		foreach ( $data as $item ) {
 			$item = explode( ',', $item );
 
-			$sku   = $item[0];
-			$stock = $item[1];
+			$sku   = isset($item[0]) ? $item[0] : null;
+			$stock = isset($item[1]) ? $item[1] : null;
 
 			$prod_id = MyFunctions::find_prod_id_by_sku( $sku );
 			if ( ! empty( $prod_id ) ) {
