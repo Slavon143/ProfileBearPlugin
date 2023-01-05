@@ -70,7 +70,7 @@ class Optimize {
 			$queryStr = substr( $queryStr, 0, - 2 );
 			$wpdb->query( "DELETE FROM `optimize_img` WHERE $queryStr;" );
 		}
-		if ( $this->img_status == '0' ) {
+		if ( $this->img_status != '1' ) {
 			return;
 		}
 		$this->checkImg();

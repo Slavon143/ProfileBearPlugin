@@ -276,14 +276,7 @@ class Paginator {
 			}
 		}
 
-		if ( $end <= $last ) {
-			$html .= '<li class="disabled"><span><a class="page-link" href="">...</a></span></li>';
-			$html .= '<li><a class="page-link" data-page="' . $last . '"href="?page=profile_bear_optimization_img&limit=' .
-			         $this->_limit . '&pagin=' . $last . '">' .
-			         $last . '</a></li>';
-		}
-
-		if ( $this->_page == $last ) {
+		if ( $this->_page == $last && $this->_page <= $last) {
 			$html .= '<li class="page-item disabled"><a class="page-link" data-page="' . ( $this->_page + 1 ) . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
 		} else {
 			$html .= '<li class="page-item"><a class="page-link" data-page="' . ( $this->_page + 1 ) . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
