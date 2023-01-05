@@ -275,8 +275,7 @@ class Paginator {
 				$html .= '<li class="' . $class . '"><a class="page-link" data-page="' . $i . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . $i . '">' . $i . '</a></li>';
 			}
 		}
-
-		if ( $this->_page == $last && $this->_page <= $last) {
+		if ( $last <= $this->_page) {
 			$html .= '<li class="page-item disabled"><a class="page-link" data-page="' . ( $this->_page + 1 ) . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
 		} else {
 			$html .= '<li class="page-item"><a class="page-link" data-page="' . ( $this->_page + 1 ) . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
