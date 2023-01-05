@@ -8,6 +8,7 @@ $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
 set_time_limit(-1);
 class Optimize {
+
 	public $upload_dir;
 	public $dirs = [ 'uploads' ];
 	public $exts = [ 'png', 'jpg', 'jpeg' ];
@@ -16,13 +17,13 @@ class Optimize {
 	public $timeUpdate;
 
 	public function __construct() {
+
 		$this->img_status = get_option( 'optimize_img' );
 		$this->timeUpdate = (int) get_option( 'optimize_img_time_update' );
-
-		$this->timeUpdate = $this->timeUpdate ? $this->timeUpdate : 24;
-
 		$this->quality = (int) get_option( 'optimize_quality_img' );
 		$upload_dir    = wp_upload_dir();
+		$this->timeUpdate = $this->timeUpdate ? $this->timeUpdate : 24;
+
 		array_push( $this->dirs, $upload_dir['basedir'] );
 	}
 

@@ -8,8 +8,9 @@ include_once $path . '/wp-load.php';
 class MyFunctions {
 
 	public function make( $post ) {
+
 		if ( ! empty( $post['delete'] ) && isset( $_POST['options'] ) ) {
-			$this->delete( $_POST );
+			$this->delete( $post );
 		}
 		if ( ! empty( $post['edit_secondary'] ) && isset( $_POST['options'] ) ) {
 			$this->update( $post, '0' );
@@ -55,6 +56,7 @@ class MyFunctions {
 	}
 
 	public function delete( $arg ) {
+
 		if ( empty( $arg['options'] ) ) {
 			return;
 		}
@@ -63,6 +65,9 @@ class MyFunctions {
 		if ( ! empty( $arg['options'] ) ) {
 			for ( $i = 0; $i <= count( $arg['options'] ); $i ++ ) {
 				if ( ! empty( $arg['options'][ $i ] ) ) {
+					if (file_exists($arg['img_path'])){
+						unlink($arg['img_path']);
+					}
 					$img      = trim( $arg['options'][ $i ] );
 					$queryStr .= "`id` = '$img' OR";
 				}

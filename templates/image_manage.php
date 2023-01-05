@@ -57,27 +57,32 @@ if (!empty($_POST)){
         </thead>
         <tbody>
         <?php for ($i = 0; $i < count($results->data); $i++) : ?>
+        <?php
+            $img_id = $results->data[$i]['id'];
+            $img_path = $results->data[$i]['img'];
+            $img_status = $results->data[$i]['done'];
+        ?>
             <tr>
                 <td>
                     <span class="custom-checkbox">
-                        <input type="checkbox" id="checkbox' <?php echo $results->data[$i]['img']; ?>"
-                                       name="options[]" value="<?php echo $results->data[$i]['id']; ?>">
-                        <label for="checkbox' <?php echo $results->data[$i]['img']; ?>"></label>
+                        <input type="checkbox" id="checkbox"
+                                       name="options[]" value="<?php echo $img_id; ?>">
+                        <input type="hidden" name="img_path" value="<?php echo $img_path?>">
                     </span>
                 </td>
                 <td>
-                    <img style="max-width:100px;"  src="<?php echo $db->buildLinkImg($results->data[$i]['img']) ?>"
+                    <img style="max-width:100px;"  src="<?php echo $db->buildLinkImg($img_path) ?>"
                          alt="img">
                 </td>
                 <td>
-                    <?php echo $results->data[$i]['img']?>
+                    <?php echo $img_path?>
                 </td>
                 <td>
-                    <span type="button" class="btn <?php echo current($file->getStatus($results->data[$i]['done']))
-                    ?>"><?php echo key($file->getStatus($results->data[$i]['done']))?></span>
+                    <span type="button" class="btn <?php echo current($file->getStatus($img_status))
+                    ?>"><?php echo key($file->getStatus($img_status))?></span>
                 <td>
                     <button type="button"
-                            class="btn btn-info"><?php echo $file->getExtImg($results->data[$i]['img']) ?></button>
+                            class="btn btn-info"><?php echo $file->getExtImg($img_path) ?></button>
                 </td>
             </tr>
         <?php endfor; ?>
