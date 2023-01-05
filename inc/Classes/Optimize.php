@@ -145,10 +145,4 @@ class Optimize {
 
 		add_action( 'Img optimizer', [ $this, 'AddNewImgToDB' ] );
 	}
-
-	public function debug( $arr ) {
-		echo '<pre>';
-		var_dump( $arr );
-		echo '</pre>';
-	}
 }

@@ -17,7 +17,13 @@ $results = $Paginator->getData($limit, $page,$search);
 $db = new \Inc\Classes\MyFunctions();
 $file = new \Inc\Classes\File();
 if (!empty($_POST)){
-    $db->make($_POST);
+    if ($db->make($_POST)){
+	    ?>
+        <script>
+            window.location.reload();
+        </script>
+	    <?php
+    }
 }
 ?>
 
@@ -66,8 +72,8 @@ if (!empty($_POST)){
                 <td>
                     <span class="custom-checkbox">
                         <input type="checkbox" id="checkbox"
-                                       name="options[]" value="<?php echo $img_id; ?>">
-                        <input type="hidden" name="img_path" value="<?php echo $img_path?>">
+                                       name="options[]" value="<?php echo $img_id . '>' . $img_path; ?>">
+
                     </span>
                 </td>
                 <td>

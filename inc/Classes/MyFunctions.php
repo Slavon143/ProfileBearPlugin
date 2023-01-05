@@ -11,12 +11,18 @@ class MyFunctions {
 
 		if ( ! empty( $post['delete'] ) && isset( $_POST['options'] ) ) {
 			$this->delete( $post );
+			return true;
 		}
 		if ( ! empty( $post['edit_secondary'] ) && isset( $_POST['options'] ) ) {
 			$this->update( $post, '0' );
+			return true;
 		}
 		if ( ! empty( $post['edit'] ) && isset( $_POST['options'] ) ) {
 			$this->update( $post, '1' );
+			return true;
+		}
+		if (empty($post['search'])){
+			return false;
 		}
 	}
 
@@ -64,11 +70,17 @@ class MyFunctions {
 		$queryStr = '';
 		if ( ! empty( $arg['options'] ) ) {
 			for ( $i = 0; $i <= count( $arg['options'] ); $i ++ ) {
+
 				if ( ! empty( $arg['options'][ $i ] ) ) {
-					if (file_exists($arg['img_path'])){
-						unlink($arg['img_path']);
+					$img      = explode( ">", $arg['options'][ $i ] );
+					$img_id   = $img[0];
+					$img_path = $img[1];
+
+					if ( file_exists( $img_path ) ) {
+						unlink( $img_path );
 					}
-					$img      = trim( $arg['options'][ $i ] );
+
+					$img      = trim( $img_id );
 					$queryStr .= "`id` = '$img' OR";
 				}
 			}
@@ -195,6 +207,12 @@ class File {
 		return $status;
 	}
 
+	public static function debug( $arr ) {
+		echo '<pre>';
+		var_dump( $arr );
+		echo '</pre>';
+	}
+
 }
 
 class Paginator {
@@ -275,7 +293,7 @@ class Paginator {
 				$html .= '<li class="' . $class . '"><a class="page-link" data-page="' . $i . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . $i . '">' . $i . '</a></li>';
 			}
 		}
-		if ( $last <= $this->_page) {
+		if ( $last <= $this->_page ) {
 			$html .= '<li class="page-item disabled"><a class="page-link" data-page="' . ( $this->_page + 1 ) . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
 		} else {
 			$html .= '<li class="page-item"><a class="page-link" data-page="' . ( $this->_page + 1 ) . '" href="?page=profile_bear_optimization_img&limit=' . $this->_limit . '&pagin=' . ( $this->_page + 1 ) . '">&raquo;</a></li>';
