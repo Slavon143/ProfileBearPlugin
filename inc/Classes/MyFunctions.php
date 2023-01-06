@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package  ProfileBearPlugin
+ */
 
 namespace Inc\Classes;
 
@@ -11,17 +14,20 @@ class MyFunctions {
 
 		if ( ! empty( $post['delete'] ) && isset( $_POST['options'] ) ) {
 			$this->delete( $post );
+
 			return true;
 		}
 		if ( ! empty( $post['edit_secondary'] ) && isset( $_POST['options'] ) ) {
 			$this->update( $post, '0' );
+
 			return true;
 		}
 		if ( ! empty( $post['edit'] ) && isset( $_POST['options'] ) ) {
 			$this->update( $post, '1' );
+
 			return true;
 		}
-		if (empty($post['search'])){
+		if ( empty( $post['search'] ) ) {
 			return false;
 		}
 	}
@@ -99,6 +105,19 @@ class MyFunctions {
 		$img_url_dir = $base_dir . $img;
 
 		return $img_url_dir;
+	}
+
+	public static function getContents( $url ) {
+		if ( empty( $url ) ) {
+			return;
+		}
+		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		$data = curl_exec( $ch );
+		curl_close( $ch );
+
+		return $data;
 	}
 
 	/*-------------------*/

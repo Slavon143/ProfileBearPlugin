@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package  ProfileBearPlugin
+ */
 namespace Inc\Classes;
 
 class PCrone {

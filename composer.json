@@ -1,12 +1,11 @@
 {
-    "name": "alecaddd/alecaddd-plugin",
-    "description": "Awesome starter plugin example",
+    "name": "profilebear/profilebear-plugin",
+    "description": "Profilebear plugin",
     "type": "project",
     "license": "GPL-3.0",
     "authors": [
         {
-            "name": "Alecaddd",
-            "email": "castellani.ale@gmail.com"
+            "name": "Profilebear"
         }
     ],
     "minimum-stability": "dev",

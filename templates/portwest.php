@@ -37,7 +37,6 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
                     </label>
                 </div>
                 <div class="form-group">
-					<?= $porewest_set_update_percentage ?>
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
                     <input type="range" class="regular-text percentage" min="0" max="100"
                            name="porewest_set_update_percentage"

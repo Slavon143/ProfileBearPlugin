@@ -30,4 +30,5 @@ class Activate
 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
     }
+
 }

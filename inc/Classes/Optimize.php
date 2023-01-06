@@ -6,7 +6,8 @@
 namespace Inc\Classes;
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
-set_time_limit(-1);
+set_time_limit( - 1 );
+
 class Optimize {
 
 	public $upload_dir;
@@ -20,8 +21,8 @@ class Optimize {
 
 		$this->img_status = get_option( 'optimize_img' );
 		$this->timeUpdate = (int) get_option( 'optimize_img_time_update' );
-		$this->quality = (int) get_option( 'optimize_quality_img' );
-		$upload_dir    = wp_upload_dir();
+		$this->quality    = (int) get_option( 'optimize_quality_img' );
+		$upload_dir       = wp_upload_dir();
 		$this->timeUpdate = $this->timeUpdate ? $this->timeUpdate : 24;
 
 		array_push( $this->dirs, $upload_dir['basedir'] );
@@ -137,7 +138,7 @@ class Optimize {
 
 		$timeToUpdate = $this->timeUpdate * 3600;
 
-		$crone        = new PCrone( 'Img optimizer', $timeToUpdate, "Update ever: " . $timeToUpdate / 3600 . ' Hours' );
+		$crone = new PCrone( 'Img optimizer', $timeToUpdate, "Update ever: " . $timeToUpdate / 3600 . ' Hours' );
 
 		add_filter( 'cron_schedules', [ $crone, 'cron_add_five_min' ] );
 

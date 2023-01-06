@@ -1,10 +1,13 @@
 <?php
+/**
+ * @package  ProfileBearPlugin
+ */
 
 namespace Inc\Classes;
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
-
-set_time_limit(-1);
+require_once __DIR__ . '/PCrone.php';
+set_time_limit( - 1 );
 
 final class ProfileBearParsers {
 
@@ -13,15 +16,15 @@ final class ProfileBearParsers {
 		$jobman_enable        = esc_attr( get_option( 'jobman_enable' ) );
 		$bastadgruppen_enable = esc_attr( get_option( 'bastadgruppen_enable' ) );
 
-		if ($portwest_enable == '1'){
+		if ( $portwest_enable == '1' ) {
 			$portwest = new ParserPortwest();
 			$portwest->run();
 		}
-		if ($jobman_enable == '1'){
+		if ( $jobman_enable == '1' ) {
 			$jobman = new ParserJobman();
 			$jobman->run();
 		}
-		if ($bastadgruppen_enable == '1'){
+		if ( $bastadgruppen_enable == '1' ) {
 			$bastadgruppen = new ParserBasta();
 			$bastadgruppen->run();
 		}
@@ -52,9 +55,11 @@ class ParserPortwest implements ParserProfileBear {
 		$getSettings     = $this->getSettings();
 		$products_update = '';
 
-		$data = file_get_contents( 'https://d11ak7fd9ypfb7.cloudfront.net/marketing_files/simple_soh/simpleSOH20.csv' );
+		$data = MyFunctions::getContents( $getSettings['url'] );
+
 		if ( ! $data ) {
-			LogsProfelebear::getInstance( "No connect to portwest server!" );
+			$logs = LogsProfelebear::getInstance();
+			$logs->setLogs( "No connect to portwest server!" );
 
 			return;
 		}
@@ -64,8 +69,8 @@ class ParserPortwest implements ParserProfileBear {
 		foreach ( $data as $item ) {
 			$item = explode( ',', $item );
 
-			$sku   = isset($item[0]) ? $item[0] : null;
-			$stock = isset($item[1]) ? $item[1] : null;
+			$sku   = isset( $item[0] ) ? $item[0] : null;
+			$stock = isset( $item[1] ) ? $item[1] : null;
 
 			$prod_id = MyFunctions::find_prod_id_by_sku( $sku );
 			if ( ! empty( $prod_id ) ) {
@@ -127,12 +132,22 @@ class ParserJobman implements ParserProfileBear {
 		$getSettings     = $this->getSettings();
 		$products_update = '';
 
-		$data = file( $getSettings['url'] );
+		$data = MyFunctions::getContents( $getSettings['url'] );
+
 		if ( ! $data ) {
-			LogsProfelebear::getInstance( "No connect to jobman server!" );
+			$logs = LogsProfelebear::getInstance();
+			$logs->setLogs( "No connect to jobman server!" );
 
 			return;
 		}
+		$data = explode( "\r\n", $data );
+
+		if ( ! is_array( $data ) ) {
+			return;
+		}
+		array_shift( $data );
+		array_shift( $data );
+
 		foreach ( $data as $item ) {
 
 			$item = explode( ';', $item );
@@ -194,13 +209,15 @@ class ParserBasta implements ParserProfileBear {
 	}
 
 	public function getData() {
+
 		$getSettings     = $this->getSettings();
 		$products_update = '';
 
-		$contents = file( 'ftp://saldofil:3astad5ruppen!@cmueshzubkda.bastadgruppen.se/Saldo.txt' );
+		$contents = file( $getSettings['url'] );
 
 		if ( ! $contents ) {
-			LogsProfelebear::getInstance( "No connect to bastadgruppen server!" );
+			$logs = LogsProfelebear::getInstance();
+			$logs->setLogs( "No connect to bastadgruppen server!" );
 
 			return;
 		}

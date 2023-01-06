@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package  ProfileBearPlugin
+ */
 namespace Inc\Classes;
 
 class ManageImg
@@ -23,6 +25,7 @@ class ManageImg
                 break;
         }
         if (!$image) {
+			LogsProfelebear::getInstance()->setLogs('Wrong img ' . $pathToImg);
             return;
         }
         $bg = imagecreatetruecolor(imagesx($image), imagesy($image));
