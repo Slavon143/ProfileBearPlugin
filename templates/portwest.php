@@ -45,7 +45,6 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
                            placeholder="percentage" oninput="this.nextElementSibling.value = this.value">
                     <output></output>
                     <span> %</span>
-                    <br>
                     <p>
                         Present value:
 						<?php echo( ! empty( $porewest_set_update_percentage ) ?

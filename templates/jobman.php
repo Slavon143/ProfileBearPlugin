@@ -45,7 +45,6 @@ $jobman_set_update_percentage = esc_attr( get_option( 'jobman_set_update_percent
                            placeholder="percentage" oninput="this.nextElementSibling.value = this.value">
                     <output></output>
                     <span> %</span>
-                    <br>
                     <p>
                         Present value:
 						<?php echo( ! empty( $jobman_set_update_percentage ) ?

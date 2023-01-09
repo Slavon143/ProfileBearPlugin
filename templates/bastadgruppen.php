@@ -45,7 +45,6 @@ $bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_
                            placeholder="percentage" oninput="this.nextElementSibling.value = this.value">
                     <output></output>
                     <span> %</span>
-                    <br>
                     <p>
                         Present value:
 						<?php echo( ! empty( $bastadgruppen_set_update_percentage ) ?
