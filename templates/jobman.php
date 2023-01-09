@@ -38,7 +38,7 @@ $jobman_set_update_percentage = esc_attr( get_option( 'jobman_set_update_percent
                 </div>
                 <div class="form-group">
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
-                    <input type="range" class="regular-text percentage" min="0" max="100"
+                    <input type="range" class="regular-text percentage" min="-100" max="100"
                            name="jobman_set_update_percentage"
                            value="<?php echo( ! empty( $jobman_set_update_percentage ) ?
 						       $jobman_set_update_percentage : 0 ) ?>"
@@ -66,7 +66,7 @@ $jobman_set_update_percentage = esc_attr( get_option( 'jobman_set_update_percent
                         every: <?php echo( ! empty( $jobman_set_update_hour ) ?
 							$jobman_set_update_hour : 24 ) ?> hours</label>
                 </div>
-                <input type="submit" value="submit_jobman_settings" class="btn btn-primary">
+                <input type="submit" value="Save settings" class="btn btn-primary">
             </form>
         </div>
         <div class="col-md-6">

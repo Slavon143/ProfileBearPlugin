@@ -38,7 +38,7 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
                 </div>
                 <div class="form-group">
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
-                    <input type="range" class="regular-text percentage" min="0" max="100"
+                    <input type="range" class="regular-text percentage" min="-100" max="100"
                            name="porewest_set_update_percentage"
                            value="<?php echo( ! empty( $porewest_set_update_percentage ) ?
 						       $porewest_set_update_percentage : 0 ) ?>"
@@ -67,7 +67,7 @@ $porewest_set_update_percentage = esc_attr( get_option( 'porewest_set_update_per
                         every: <?php echo( isset( $porewest_set_update_hour ) ?
 							$porewest_set_update_hour : 24 ) ?> hours</label>
                 </div>
-                <input type="submit" value="submit_portwest_settings" class="btn btn-primary">
+                <input type="submit" value="Save settings" class="btn btn-primary">
             </form>
         </div>
         <div class="col-md-6">

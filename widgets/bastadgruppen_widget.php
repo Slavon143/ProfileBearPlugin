@@ -12,7 +12,7 @@ echo '
            <h5 class="card-title">Status: ' . ( $bastadgruppen_enable == '1' ? 'Active' : 'Inactive' ) . '</h5>
             <p class="card-text">Updated products: <strong> ' .
 	           ( $bastadgruppen_products_update ? $bastadgruppen_products_update : 0 ) . '</strong></p>
-            <p class="card-text">Percentage to products: <strong> ' . $bastadgruppen_set_update_percentage . ' </strong></p>
+            <p class="card-text">Percentage to products: <strong> ' . $bastadgruppen_set_update_percentage . ' %</strong></p>
             <p class="card-text">Launch every: <strong>' . ( $bastadgruppen_set_update_hour ?
 			$bastadgruppen_set_update_hour : '' ) . '</strong> hours</p>
             <p class="card-text">Last update: <strong>' . ( $bastadgruppen_last_update ?

@@ -11,7 +11,7 @@ echo '<div class="card ' . ( $portwest_enable == '1' ? 'border-success' : 'borde
           <h5 class="card-title">Status: ' . ( $portwest_enable == '1' ? 'Active' : 'Inactive' ) . '</h5>
           <p class="card-text">Updated products: <strong> ' .
      ( $portewest_get_count_products_update ? $portewest_get_count_products_update : 0 ) . '</strong></p>
-          <p class="card-text">Percentage to products: <strong> ' . $porewest_set_update_percentage . ' </strong></p>
+          <p class="card-text">Percentage to products: <strong> ' . $porewest_set_update_percentage . ' % </strong></p>
           <p class="card-text">Launch every: <strong>' . ( $porewest_set_update_hour ?
 		$porewest_set_update_hour : '' ) . '</strong> hours</p>
           <p class="card-text">Last update: <strong>' . ( $portwest_last_update ?

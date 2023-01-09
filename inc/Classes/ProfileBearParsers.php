@@ -42,7 +42,8 @@ interface ParserProfileBear {
 class ParserPortwest implements ParserProfileBear {
 
 	public function getSettings() {
-		$url = 'https://d11ak7fd9ypfb7.cloudfront.net/marketing_files/simple_soh/simpleSOH20.csv';
+//		$url = 'https://d11ak7fd9ypfb7.cloudfront.net/marketing_files/simple_soh/simpleSOH20.csv';
+		$url = 'https://www.portwest.com/account/downloadProductCSV/soh/sohSE.csv';
 
 		$portwest_enable                = esc_attr( get_option( 'portwest_enable' ) );
 		$porewest_set_update_hour       = esc_attr( get_option( 'porewest_set_update_hour' ) );
@@ -64,28 +65,34 @@ class ParserPortwest implements ParserProfileBear {
 			return;
 		}
 		$data = explode( "\n", $data );
-		unset( $data[0] );
+		array_shift( $data );
 
 		foreach ( $data as $item ) {
 			$item = explode( ',', $item );
 
-			$sku   = isset( $item[0] ) ? $item[0] : null;
-			$stock = isset( $item[1] ) ? $item[1] : null;
+			$sku   = isset( $item[1] ) ? $item[1] : null;
+			$stock = isset( $item[9] ) ? $item[9] : null;
+			$price = isset( $item[3] ) ? $item[3] : null;
 
 			$prod_id = MyFunctions::find_prod_id_by_sku( $sku );
+
 			if ( ! empty( $prod_id ) ) {
 
 				$products_update ++;
 				$AddPercentage = $getSettings['porewest_set_update_percentage'];
-				$price         = (int) MyFunctions::find_price_by_product_id( $prod_id );
+				$price         = (int) $price;
 
 				if ( ! empty( $AddPercentage ) && ! empty( $price ) ) {
+
 					$newPrice = $price + ( $price * ( $AddPercentage / 100 ) );
 
 					update_post_meta( $prod_id, '_price', $newPrice );
 					update_post_meta( $prod_id, '_regular_price', $newPrice );
-
+				}else{
+					update_post_meta( $prod_id, '_price', $price );
+					update_post_meta( $prod_id, '_regular_price', $price );
 				}
+
 				MyFunctions::add_custom_external_stock( $prod_id, $stock );
 			}
 		}

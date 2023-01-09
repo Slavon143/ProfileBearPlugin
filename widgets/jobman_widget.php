@@ -12,7 +12,7 @@ echo '
            <h5 class="card-title">Status: ' . ( $jobman_enable == '1' ? 'Active' : 'Inactive' ) . '</h5>
            <p class="card-text">Updated products: <strong> ' .
      ( $jobman_get_count_products_update ? $jobman_get_count_products_update : 0 ) . '</strong></p>
-           <p class="card-text">Percentage to products: <strong> ' . $jobman_set_update_percentage . ' </strong></p>
+           <p class="card-text">Percentage to products: <strong> ' . $jobman_set_update_percentage . ' %</strong></p>
            <p class="card-text">Launch every: <strong>' . ( $jobman_set_update_hour ?
 		$jobman_set_update_hour : '' ) . '</strong> hours</p>
            <p class="card-text">Last update: <strong>' . ( $jobman_last_update ?

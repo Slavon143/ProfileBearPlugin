@@ -38,7 +38,7 @@ $bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_
                 </div>
                 <div class="form-group">
                     <label class="form-check-label" for="inlineCheckbox1"> Add percentage to products %</label>
-                    <input type="range" class="regular-text percentage" min="0" max="100"
+                    <input type="range" class="regular-text percentage" min="-100" max="100"
                            name="bastadgruppen_set_update_percentage"
                            value="<?php echo( ! empty( $bastadgruppen_set_update_percentage ) ?
 						       $bastadgruppen_set_update_percentage : 0 ) ?>"
@@ -66,7 +66,7 @@ $bastadgruppen_set_update_percentage = esc_attr( get_option( 'bastadgruppen_set_
                         every: <?php echo( ! empty( $bastadgruppen_set_update_hour ) ?
 							$bastadgruppen_set_update_hour : 24 ) ?> hours</label>
                 </div>
-                <input type="submit" value="submit_bastadgruppen_settings" class="btn btn-primary">
+                <input type="submit" value="Save settings" class="btn btn-primary">
             </form>
         </div>
         <div class="col-md-6">
