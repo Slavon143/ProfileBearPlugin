@@ -88,7 +88,7 @@ class ParserPortwest implements ParserProfileBear {
 
 					update_post_meta( $prod_id, '_price', $newPrice );
 					update_post_meta( $prod_id, '_regular_price', $newPrice );
-				}else{
+				} else {
 					update_post_meta( $prod_id, '_price', $price );
 					update_post_meta( $prod_id, '_regular_price', $price );
 				}
@@ -230,13 +230,20 @@ class ParserBasta implements ParserProfileBear {
 		}
 		if ( is_array( $contents ) && ! empty( $contents ) ) {
 			array_shift( $contents );
+			array_shift( $contents );
 			foreach ( $contents as $item ) {
 				if ( ! empty( $item ) ) {
-//                $number = trim(substr($item,0,12));
-					$saldo       = ltrim( substr( $item, 12, 5 ), '0' );
-					$var_get_EAN = ltrim( trim( substr( $item, 40, 20 ) ), '0' );
 
-					$post_id = MyFunctions::find_prod_id_by_ean( $var_get_EAN );
+					$item = trim( $item );
+					$item = str_replace( [ "         ", "        ", "    " ], ' ', $item );
+					$item = substr_replace( $item, null, 0, 12 );
+					$item = explode( ' ', $item );
+
+					$sku_number = trim( $item[2] );
+					$saldo      = ltrim( substr( $item[0], 0, 5 ), '0' );
+
+					$post_id = MyFunctions::find_prod_id_by_sku( $sku_number );
+
 					if ( ! empty( $post_id ) ) {
 
 						$products_update ++;

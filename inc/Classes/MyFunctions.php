@@ -140,30 +140,6 @@ class MyFunctions {
 		}
 	}
 
-	/*-------------------*/
-	/*Find prod ID by EAN*/
-	/*-------------------*/
-	public static function find_prod_id_by_ean( $EAN_input ) {
-
-		global $wpdb;
-
-		$ean = $EAN_input;
-
-		if ( ! $ean ) {
-			return null;
-		}
-		$product_id = $wpdb->get_var(
-			$wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_fortnox_ean' AND meta_value='%s' LIMIT 1",
-				$ean )
-		);
-
-		if ( $product_id ) {
-			return $product_id;
-		}
-
-		return null;
-	}
-
 	/*----------------------------------------*/
 	/*Add custom external stock (Custom field)*/
 	/*----------------------------------------*/
