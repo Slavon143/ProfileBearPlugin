@@ -96,7 +96,7 @@ class ParserPortwest implements ParserProfileBear {
 				MyFunctions::add_custom_external_stock( $prod_id, $stock );
 			}
 		}
-		update_option( 'porewest_set_update_percentage', 0 );
+//		update_option( 'porewest_set_update_percentage', 0 );
 		update_option( 'portwest_products_update', $products_update );
 		update_option( 'portwest_last_update', date( "F j,Y,g:i a" ) );
 	}
