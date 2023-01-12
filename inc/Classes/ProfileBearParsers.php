@@ -6,7 +6,7 @@
 namespace Inc\Classes;
 $path = $_SERVER['DOCUMENT_ROOT'];
 include_once $path . '/wp-load.php';
-require_once __DIR__ . '/PCrone.php';
+include_once __DIR__ . '/PCrone.php';
 set_time_limit( - 1 );
 
 final class ProfileBearParsers {

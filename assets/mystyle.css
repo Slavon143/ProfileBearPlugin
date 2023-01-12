@@ -90,3 +90,7 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+.material-icons{
+    color: orange;
+    text-decoration: none;
+}

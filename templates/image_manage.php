@@ -5,25 +5,25 @@ include_once $path . '/wp-load.php';
 
 require __DIR__ . '/../inc/Classes/MyFunctions.php';
 
-$limit = (isset($_GET['limit'])) ? $_GET['limit'] : 100;
-$page = (!empty($_GET['pagin'])) ? $_GET['pagin'] : 1;
-$links = (isset($_GET['links'])) ? $_GET['links'] : 4;
-$search = (isset($_POST['search'])) ? $_POST['search'] : null;
-$search = trim($search);
-$query = "SELECT * FROM `optimize_img`";
-$Paginator = new \Inc\Classes\Paginator($query);
+$limit     = ( isset( $_GET['limit'] ) ) ? $_GET['limit'] : 100;
+$page      = ( ! empty( $_GET['pagin'] ) ) ? $_GET['pagin'] : 1;
+$links     = ( isset( $_GET['links'] ) ) ? $_GET['links'] : 4;
+$search    = ( isset( $_POST['search'] ) ) ? $_POST['search'] : null;
+$search    = trim( $search );
+$query     = "SELECT * FROM `optimize_img`";
+$Paginator = new \Inc\Classes\Paginator( $query );
 
-$results = $Paginator->getData($limit, $page,$search);
-$db = new \Inc\Classes\MyFunctions();
-$file = new \Inc\Classes\File();
-if (!empty($_POST)){
-    if ($db->make($_POST)){
-	    ?>
+$results = $Paginator->getData( $limit, $page, $search );
+$db      = new \Inc\Classes\MyFunctions();
+$file    = new \Inc\Classes\File();
+if ( ! empty( $_POST ) ) {
+	if ( $db->make( $_POST ) ) {
+		?>
         <script>
             window.location.reload();
         </script>
-	    <?php
-    }
+		<?php
+	}
 }
 ?>
 
@@ -59,46 +59,51 @@ if (!empty($_POST)){
             <th>Name</th>
             <th>Status</th>
             <th>Format</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
-        <?php for ($i = 0; $i < count($results->data); $i++) : ?>
-        <?php
-            $img_id = $results->data[$i]['id'];
-            $img_path = $results->data[$i]['img'];
-            $img_status = $results->data[$i]['done'];
-        ?>
+		<?php for ( $i = 0; $i < count( $results->data ); $i ++ ) : ?>
+			<?php
+			$img_id     = $results->data[ $i ]['id'];
+			$img_path   = $results->data[ $i ]['img'];
+			$img_status = $results->data[ $i ]['done'];
+			?>
             <tr>
                 <td>
                     <span class="custom-checkbox">
                         <input type="checkbox" id="checkbox"
-                                       name="options[]" value="<?php echo $img_id . '>' . $img_path; ?>">
+                               name="options[]" value="<?php echo $img_id . '>' . $img_path; ?>">
 
                     </span>
                 </td>
                 <td>
-                    <img style="max-width:100px;"  src="<?php echo $db->buildLinkImg($img_path) ?>"
+                    <img style="max-width:100px;" src="<?php echo $db->buildLinkImg( $img_path ) ?>"
                          alt="img">
                 </td>
                 <td>
-                    <?php echo $img_path?>
+					<?php echo $img_path ?>
                 </td>
                 <td>
-                    <span type="button" class="btn <?php echo current($file->getStatus($img_status))
-                    ?>"><?php echo key($file->getStatus($img_status))?></span>
+                    <span type="button" class="btn <?php echo current( $file->getStatus( $img_status ) )
+                    ?>"><?php echo key( $file->getStatus( $img_status ) ) ?></span>
                 <td>
                     <button type="button"
-                            class="btn btn-info"><?php echo $file->getExtImg($img_path) ?></button>
+                            class="btn btn-info"><?php echo $file->getExtImg( $img_path ) ?></button>
+                </td>
+                <td>
+                    <a href="?page=profile_img_edit&img=<?php echo $img_path?>"
+                       class="edit"><i class="material-icons" title="Edit">&#xE254;</i></a>
                 </td>
             </tr>
-        <?php endfor; ?>
+		<?php endfor; ?>
         </tbody>
     </table>
-    <?php if (empty($search)):?>
+	<?php if ( empty( $search ) ): ?>
         <nav aria-label="Page navigation example">
-		    <?php echo $Paginator->createLinks($links, 'pagination'); ?>
+			<?php echo $Paginator->createLinks( $links, 'pagination' ); ?>
         </nav>
-    <?php endif;?>
+	<?php endif; ?>
 </form>
 
 

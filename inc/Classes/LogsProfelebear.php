@@ -9,7 +9,7 @@ class LogsProfelebear {
 	public $dir = __DIR__ . '/../../logs/';
 	public $filename = 'logs.log';
 
-	private static LogsProfelebear $instance;
+	private static $instance;
 
 	public function __construct(){
 	}

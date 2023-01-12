@@ -26,6 +26,9 @@ class AdminCallbacks extends BaseController {
 	public function adminJobman() {
 		return require_once( "$this->plugin_path/templates/jobman.php" );
 	}
+	public function adminImgedit() {
+		return require_once( "$this->plugin_path/templates/imgedit.php" );
+	}
 
 
 	public function profileBearOptionsGroup( $input ) {

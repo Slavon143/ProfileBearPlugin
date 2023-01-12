@@ -88,7 +88,14 @@ class Admin extends BaseController {
 				'menu_slug'   => 'profile_bear_jobman',
 				'callback'    => array( $this->callbacks, 'adminJobman' )
 			),
-
+			array(
+				'parent_slug' => 'profile_bear_optimization_img',
+				'page_title'  => 'Custom Jobman',
+				'menu_title'  => 'Jobman Settingssss',
+				'capability'  => 'manage_options',
+				'menu_slug'   => 'profile_img_edit',
+				'callback'    => array( $this->callbacks, 'adminImgedit' )
+			),
 		);
 	}
 
